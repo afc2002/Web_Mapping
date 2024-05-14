@@ -35,7 +35,7 @@
             width: 30%;  /* width of parent div */
             padding: 10px;
             border-style: solid;
-            border-color: oldlace;
+            border-color: ghostwhite;
             border-radius: 3px; /* rounded corners */
             font-size: 1em;
             text-align: center;
@@ -54,7 +54,6 @@
              font-family: 'Caveat', serif;
              font-weight: 400;
            } 
-
 
     </style>
   </head>
@@ -106,9 +105,9 @@
               // Popup for marker 3  
               var popup3_content = '<h2>Press play to listen to a bison eating</h2><br>';
               popup3_content += '<audio controls><source src="sounds/yell-YELLBisonEating150313.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-              popup3_content += 'Source: NPS/Jennifer Jerret, <a href="https://www.nps.gov/yell/learn/photosmultimedia/sounds-bisoneating.htm">NPS</a>';
+              popup3_content += 'Audio Source: NPS/Jennifer Jerret, <a href="https://www.nps.gov/yell/learn/photosmultimedia/sounds-bisoneating.htm">NPS</a>';
               popup3_content += '<img class="popupImage" alt=" A herd of bison standing along the snowy banks of the Gibbon River" src="https://www.nps.gov/yell/learn/photosmultimedia/images/ndh-yell-bison-gibbon_2.jpg?maxwidth=1300&maxheight=1300&autorotate=false">' ;
-              popup3_content += 'Source: NPS/Neal Herbert, <a href="https://www.nps.gov/yell/learn/photosmultimedia/sounds-bisoneating.htm">NPS</a>';
+              popup3_content += 'Image Source: NPS/Neal Herbert, <a href="https://www.nps.gov/yell/learn/photosmultimedia/sounds-bisoneating.htm">NPS</a>';
 
         
               var popup3 = new mapboxgl.Popup({ minWidth:'300px' })
@@ -117,7 +116,9 @@
                // Popup for marker 4  
               var popup4_content = '<h2>Press play to listen to a horse drawn carriage in Central Park</h2><br>';
               popup4_content += '<audio controls><source src="sounds/horsecentralpark-34740.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-              popup4_content += 'Source: Pixabay, <a href="https://pixabay.com/sound-effects/search/central-park/">Pixabay</a>';
+              popup4_content += 'Audio Source: Pixabay, <a href="https://pixabay.com/sound-effects/search/central-park/">Pixabay</a>';
+              popup4_content += '<img class="popupImage" alt="Black and white photo of a horse drawn carriage in Central Park circa 1900" src="sounds/horse-drawn-carriages-in-central-park-new-york-city.jpg" type="img/jpeg">' ;
+              popup4_content += 'Image Source: Picryl/Library of Congress, <a href="https://picryl.com/media/horse-drawn-carriages-in-central-park-new-york-city">Picryl</a>';
 
         
               var popup4 = new mapboxgl.Popup({ minWidth:'300px' })
