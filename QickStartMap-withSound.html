@@ -65,8 +65,10 @@
       
        <!--  Insert the button elements here  -->
           <button class='fly' id='PortlandButton'>Jump to Portland</button>
-           <button class='fly' id='LondonButton'>Jump to London</button>
-           <button class='fly' id='YellowstoneButton'>Jump to Yellowstone</button> 
+          <button class='fly' id='LondonButton'>Jump to London</button>
+          <button class='fly' id='YellowstoneButton'>Jump to Yellowstone</button> 
+          <button class='fly' id='NewYorkButton'>Jump to New York City</button>
+         
 
     <script>
         // Insert the JavaScript within the <script> tags, within the body   
@@ -111,6 +113,15 @@
         
               var popup3 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup3_content);
+        
+               // Popup for marker 4  
+              var popup4_content = '<h2>Press play to listen to a horse drawn carriage in Central Park</h2><br>';
+              popup4_content += '<audio controls><source src="sounds/horsecentralpark-34740.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>';
+              popup4_content += 'Source: Pixabay, <a href="https://pixabay.com/sound-effects/search/central-park/">Pixabay</a>';
+
+        
+              var popup4 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup4_content);
 
         /***  END POPUPS  ***/  
 
@@ -138,6 +149,13 @@
       .setLngLat([-110.74524187568,44.706216445069]) // Yellowstone
       .setPopup(popup3)
       .addTo(map);
+        
+    // Marker 4 - New York City
+    var marker4 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-73.96602038203213,40.784178230299425]) // New York
+      .setPopup(popup4)
+      .addTo(map);
+        
 
         /***  END MARKERS  ***/
 
@@ -163,6 +181,13 @@
         document.getElementById('YellowstoneButton').addEventListener('click', function () {
             map.jumpTo({
                   center:[-110.74524187568,44.706216445069], 
+                  zoom: 9
+            });
+});
+        // Add a 'Listener' to the button element with the ID 'NewYorkButton'.
+        document.getElementById('NewYorkButton').addEventListener('click', function () {
+            map.jumpTo({
+                  center:[-73.96602038203213,40.784178230299425], 
                   zoom: 9
             });
 });
