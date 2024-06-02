@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Sports Travels Map</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://icons8.com/icon/g0OqZLFvAecI/skiing">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: calc(100% - 300px);
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .side-panel {
+            width: 375px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #F8F8F8;
+            overflow-y: auto;
+            transition: width 0.3s ease;
+        }
+        .button-container {
+            padding: 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            background-color: darkseagreen;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s; /* Added transition for smooth color change */
+        }
+        .button:nth-child(1):hover {
+            background-color: #9B9E40; /* Change color for Freshman Year button */
+        }
+        .button:nth-child(2):hover {
+            background-color: #9B9E40; /* Change color for Sophomore Year button */
+        }
+        .button:nth-child(3):hover {
+            background-color: #9B9E40; /* Change color for Junior Year button */
+        }
+        .button:nth-child(4):hover {
+            background-color: #9B9E40; /* Change color for Senior Year button */
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px;
+        }
+        
+        /* Overrides the pop-up width slightly bigger min-width than the default Mapbox CSS*/
+         .mapboxgl-popup {
+            min-width: 400px;
+            /*add the css for the popup font here */
+                    font-family: 'Caveat', serif;
+        }   
+        
+        /* Insert the CSS for the image here */
+        .popupImage{
+             width:100%;
+         }
+        
+        /* Custom marker style I CANT MAKE THIS WORK */
+        .marker {
+            width: 30px;
+            height: 30px;
+            background-image: url('icons8-skiing-30.png'); /* Replace 'your-marker-image.png' with your PNG marker image */
+            background-size: cover;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        /* Different background colors for buttons */
+        .button:nth-child(1) {
+            background-color: #2ECDC5;
+        }
+        .button:nth-child(2) {
+            background-color: #407C9E;
+        }
+        .button:nth-child(3) {
+            background-color: #404D9E;
+        }
+        .button:nth-child(4) {
+            background-color: #91409E ;
+        }
+        
+        .popupImage {
+            margin-bottom: 10px; /* Adjust this value to set the desired space between images */
+        }
+
+        #zoom-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+        }
+        #zoom-buttons button {
+            margin-bottom: 5px; /* Add some margin between buttons */
+        }
+        
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+<div class="side-panel">
+    <div class="title">Aidan's Athletic Adventures
+    <h5> Click a button to travel through time</h5></div>
+    <div class="button-container">
+        <button class="button" onclick="flyToNextLocation(0)">Freshman Year</button>
+        <button class="button" onclick="flyToNextLocation(1)">Sophomore Year</button>
+        <button class="button" onclick="flyToNextLocation(2)">Junior Year</button>
+        <button class="button" onclick="flyToNextLocation(3)">Senior Year</button>
+    </div>
+    <div style="padding: 20px;">
+        <h3> Description</h3>
+        <p> The sailing team was epic wooooo. The alpine team was also epic most of the time woooooo! Yada yada yada</p>
+    </div>
+    </div>
+
+    <div id="zoom-buttons">
+    <button id="zoom-in">+</button>
+    <button id="zoom-out">-</button>
+    </div>
+    
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWZjMjAwMiIsImEiOiJjbHVsbGhhZDYxMndzMmlwNTMyYWJtaXl2In0.oWBwqoOTKizpyf8pVHeENw';
+
+    const locations = [
+        [
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
+            { name: 'Annapolis', coordinates: [ -76.48289783468702, 38.98350959514186] },
+        ],
+        [
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
+            { name: 'Seattle1', coordinates: [-122.25603955653592, 47.68810868087924] },
+            { name: 'Eugene1', coordinates: [-123.3134840090948, 44.120480118319755] },
+            { name: 'Bellingham1', coordinates: [-122.33659615985495, 48.73715947872702] },
+            { name: 'Seattle2', coordinates: [-122.23225452269152, 47.67363684011854] },
+            { name: 'BlackButte', coordinates: [-121.86084256143931, 44.40819467595015] },
+            { name: 'Brundage1', coordinates: [-116.15077801023584, 45.00867865199474] },
+            { name: '49DegreesN', coordinates: [-117.56292683095484, 48.30123991094011] },
+            { name: 'LookoutPass1', coordinates: [-115.69710172837202, 47.45620565110117] },
+            { name: 'RedLodge', coordinates: [-109.33639544456858, 45.19093661006774] },
+            { name: 'MorroBay', coordinates: [-120.85021533043592, 35.35778621065163] },
+            { name: 'Vallejo', coordinates: [ -122.23064810989075, 38.0657940051278] },
+            { name: 'OrcasIsland1', coordinates: [-122.98107825834987, 48.633046189814266] },
+            { name: 'RainerCascadeLocks1', coordinates: [-121.88708757595536, 45.67755921345878] },
+            { name: 'GorgeCascadeLocks1', coordinates: [-121.89094995672524, 45.67761918294506] },
+        ],
+        [
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
+            { name: 'Seattle3', coordinates: [-122.22924296818425, 47.683383764335055] },
+            { name: 'Eugene2', coordinates: [-123.32153699714587, 44.10847639101417] },
+            { name: 'Seattle4', coordinates: [-122.26484793097914, 47.6889464595122] },
+            { name: 'Bellingham2', coordinates: [-122.34072066291996, 48.72936929241587] },
+            { name: 'BlackButte2', coordinates: [-121.87143725994065, 44.408758835876476] },
+            { name: 'SilverMountain', coordinates: [-116.11920867287779, 47.49915960669005] },
+            { name: 'AnthonyLakes', coordinates: [-118.23393243108417, 44.96268409010189] },
+            { name: 'Brundage2', coordinates: [-116.15441211476177, 45.00552885353043] },
+            { name: 'Snoqualmie1', coordinates: [-121.41645477516795, 47.42504270952052] },
+            { name: 'BogusBasin', coordinates: [-116.10278849694119, 43.76476872727828] },
+            { name: 'MammothLakes', coordinates: [-119.02619079458566, 37.63967330319432] },
+            { name: 'Eugene3', coordinates: [-123.31318551947251, 44.11599520722522] },
+            { name: 'RainerCL2', coordinates: [-121.89721559664079, 45.673091305977955] },
+            { name: 'OrcasIsland2', coordinates: [-122.95761000883107, 48.63157719627219] },
+            { name: 'GorgeCL2', coordinates: [-121.89148638972443, 45.672319206030885] },
+        ],
+        [
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
+            { name: 'Seattle5', coordinates: [-122.26484793097914, 47.6889464595122] },
+            { name: 'Eugene4', coordinates: [-123.30605878541829, 44.10936454794704] },
+            { name: 'Seattle6', coordinates: [-122.26484793097914, 47.6889464595122] },
+            { name: 'Bellingham3', coordinates: [-122.34072066291996, 48.72936929241587] },
+            { name: 'LArosebowl', coordinates: [ -118.13969280327575, 33.75551028554111] },
+            { name: 'Brundage3', coordinates: [-116.15441211476177, 45.00552885353043] },
+            { name: 'LookoutPass2', coordinates: [-115.69710172837202, 47.45620565110117] },
+            { name: 'Snoqualmie2', coordinates: [-121.41645477516795, 47.425042709520521] },
+            { name: 'Eugene5', coordinates: [-123.31318551947251, 44.11599520722522] },
+            { name: 'Eugene6', coordinates: [-123.31318551947251, 44.11599520722522] },
+            { name: 'GorgeCL3', coordinates: [-121.89152202062441, 45.67229568652907] },
+        ]
+    ];
+    
+    const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/afc2002/clw9nnxar002p01pp2z4e2t2e',
+    center: [-123.07399541967379, 44.043514419363625], // Centered on Eugene
+    zoom: 12
+});
+
+
+    let currentIndex = 0;
+
+    function flyToNextLocation(setIndex) {
+        const locationSet = locations[setIndex];
+        if (currentIndex < locationSet.length) {
+        map.flyTo({
+            center: locationSet[currentIndex].coordinates,
+            essential: true, // this animation is considered essential with respect to prefers-reduced-motion media query
+            duration: 7000 // Adjust the duration (in milliseconds) to slow down the flyover animation
+            });
+        currentIndex++;
+            } else {
+        currentIndex = 0; // Reset index if all locations in the set have been visited
+        }
+    }
+
+    
+            /***  POPUPS  ***/
+            // popups go here
+              // Popup for marker 1
+              var popup1_content = '<h2>Sailing Nationals!</h2><br>';
+              popup1_content += '<h5>This was my first ever club sports trip, and it was to compete in ICSA Sailing Nationals at the U.S. Naval Academy in Annapolis, Maryland. I barely knew how to sail and we were the worst team to ever compete in this event in its history (not kidding), but we had a damn good time!</h5>';
+              popup1_content += '<img class="popupImage" alt="Six University of Oregon sailors smile for a picture at the Naval Academy" src="Images_ContentforPopups/Annapolis_Nationals.png" type="img/pneg">' ;
+              popup1_content += 'Image Source: My Own';
+        
+              var popup1 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup1_content);
+       
+              // Popup for marker 2  
+              var popup2_content = '<h2>Seattle1</h2><br>';
+              popup2_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Seattle1_Needle.jpg" type="img/pneg">' ;
+              popup2_content += 'Image Source: My Own';
+        
+        
+              var popup2 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup2_content);
+
+    
+              // Popup for marker 3  
+              var popup3_content = '<h2>Eugene</h2><br>';
+              popup3_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Eugene1_AveyBoat.JPG" type="img/jpeg">' ;
+              popup3_content += 'Image Source: My Own';
+
+        
+              var popup3 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup3_content);
+        
+               // Popup for marker 4  
+              var popup4_content = '<h2>Bellingham</h2><br>';
+              popup4_content += '<img class="popupImage" alt="Two University of Oregon sailors awkwardly fistbump in the rain" src="Images_ContentforPopups/Bellingham1_OGawkFistbump.jpg" type="img/jpeg">' ;
+              popup4_content += 'Image Source: My Own';
+
+        
+              var popup4 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup4_content);
+    
+              // Popup for marker 5  
+              var popup5_content = '<h2>Seattle</h2><br>';
+              popup5_content += '<img class="popupImage" alt="Five University of Oregon sailors sit stoicly with Lake Washington in the background" src="Images_ContentforPopups/Seattle2_AngryTeam.jpg" type="img/jpeg">' ;
+              popup5_content += 'Image Source: My Own';
+
+        
+              var popup5 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup5_content);
+    
+              // Popup for marker 6  
+              var popup6_content = '<h2>Hoodoo Training Weekend</h2><br>';
+              popup6_content += '<img class="popupImage" alt="The University of Oregon alpine ski team poses for a group picture on the mountain" src="Images_ContentforPopups/BlackButte1_alpinePhoto.jpg" type="img/jpeg">' ;
+              popup6_content += 'Image Source: My Own';
+
+        
+              var popup6 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup6_content);
+    
+              // Popup for marker 7
+              var popup7_content = '<h2>Brundage1</h2><br>';
+              popup7_content += '<img class="popupImage" alt="An action shot of Aidan GS skiing in a race with a red helmet" src="Images_ContentforPopups/Brundage1_GSaction.png" type="img/jpeg">' ;
+              popup7_content += 'Image Source: My Own';
+
+        
+              var popup7 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup7_content);
+       
+              // Popup for marker 8  
+              var popup8_content = '<h2>49 Degrees North</h2><br>';
+              popup8_content += '<img class="popupImage" alt="Three skiers pose for a picture at the bottom of a race course" src="Images_ContentforPopups/49DegreesN_MarScootMe.JPG" type="img/jpeg">' ;
+              popup8_content += 'Image Source: My Own';
+        
+              var popup8 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup8_content);
+
+    
+              // Popup for marker 9  
+              var popup9_content = '<h2>Lookout Pass</h2><br>';
+              popup9_content += '<img class="popupImage" alt="An action shot of Aidan slalom skiing in a race with a red helmet" src="Images_ContentforPopups/LookoutPass1_SlalomAction.JPG" type="img/jpeg">' ;
+              popup9_content += 'Image Source: My Own';
+        
+              var popup9 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup9_content);
+        
+              // Popup for marker 10  THIS NEEDS TO BE FIXED AND THE VIDEO LINKED TO YOUTUBE
+              var popup10_content = '<h2>Red Lodge</h2><br>';
+              popup10_content += '<img class="popupImage" alt="Video of Aidan falling in a slalom race" src="Images_ContentforPopups/RedLodge_fallingvideo.mov" type="img/mov">' ;
+              popup10_content += 'Image Source: My Own';
+
+        
+              var popup10 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup10_content);
+    
+              // Popup for marker 11  
+              var popup11_content = '<h2>Morro Bay</h2><br>';
+              popup11_content += '<img class="popupImage" alt="Five University of Oregon sailors take a group picture from the back of their minivan" src="Images_ContentforPopups/MorroBay_CarPhoto.jpg" type="img/jpeg">' ;
+              popup11_content += 'Image Source: My Own';
+
+        
+              var popup11 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup11_content);
+    
+              // Popup for marker 12  
+              var popup12_content = '<h2>Vallejo</h2><br>';
+              popup12_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/Vallejo_AveyCupcake.png" type="img/jpeg">' ;
+              popup12_content += 'Image Source: My Own';
+
+        
+              var popup12 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup12_content);
+    
+              // Popup for marker 13  
+              var popup13_content = '<h2>Orcas Island</h2><br>';
+              popup13_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/OrcasIsland1_KitTillieVan.png" type="img/jpeg">' ;
+              popup13_content += 'Image Source: My Own';
+
+        
+              var popup13 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup13_content);
+    
+              // Popup for marker 14  
+              var popup14_content = '<h2>Rainer Cascade Locks</h2><br>';
+              popup14_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/RainierCascadeLocks1_TruckBed.jpg" type="img/jpeg">' ;
+              popup14_content += 'Image Source: My Own';
+
+        
+              var popup14 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup14_content);
+    
+              // Popup for marker 15  
+              var popup15_content = '<h2>Gorge Cascade Locks</h2><br>';
+              popup15_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/GorgeCascadeLocks1_PantsingTillie.jpeg" type="img/jpeg">' ;
+              popup15_content += 'Image Source: My Own';
+
+        
+              var popup15 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup15_content);
+    
+              // Popup for marker 16  
+              var popup16_content = '<h2>Seattle Cascadia Cup Junior year, very smokey</h2><br>';
+              popup16_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/SeattleCascadia_Junior.png" type="img/jpeg">' ;
+              popup16_content += 'Image Source: My Own';
+        
+              var popup16 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup16_content);
+    
+              // Popup for marker 17 
+              var popup17_content = '<h2>Eugene Outlaw J</h2><br>';
+              popup17_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/EugeneOutlaw_Junior.jpg" type="img/jpeg">' ;
+              popup17_content += 'Image Source: My Own';
+
+              var popup17 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup17_content);
+    
+              // Popup for marker 18  
+              var popup18_content = '<h2>Seattle North North J</h2><br>';
+              popup18_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/Seattle_NorthNorth_Junior.png" type="img/jpeg">' ;
+              popup18_content += 'Image Source: My Own';
+
+        
+              var popup18 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup18_content);
+    
+              // Popup for marker 19  
+              var popup19_content = '<h2>Bellingham Frosh Soph J</h2><br>';
+              popup19_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/Bellingham_FroshSoph_Junior.png" type="img/jpeg">' ;
+              popup19_content += 'Image Source: My Own';
+        
+              var popup19 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup19_content);
+    
+              // Popup for marker 20  
+              var popup20_content = '<h2>Hoodoo Training Weekend J</h2><br>';
+              popup20_content += '<img class="popupImage" alt="Four college students smile for a selfie in the back of a car" src="Images_ContentforPopups/TrainingWeekendCarSelfie.jpg" type="img/jpeg">' ;
+              popup20_content += 'Image Source: My Own';
+
+        
+              var popup20 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup20_content);
+    
+
+              // Popup for marker 21  potential youtube cowboy drill video
+              var popup21_content = '<h2>Silver Mountain J Center of the Universe</h2><br>';
+              popup21_content += '<img class="popupImage" alt="Four skiers smile for a selfie in the back of a car" src="Images_ContentforPopups/WallaceCenterUniverse.JPG" type="img/jpeg">' ;
+              popup21_content += 'Image Source: My Own';
+        
+              var popup21 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup21_content);
+    
+              // Popup for marker 22 
+              var popup22_content = '<h2>Anthony Lakes J</h2><br>';
+              popup22_content += '<img class="popupImage" alt="Action shot of Aidan racing slalom at Anthony Lakes" src="Images_ContentforPopups/AnthonyLakes_SlalomAction.jpg" type="img/jpeg">' ;
+              popup22_content += 'Image Source: My Own';
+        
+              var popup22 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup22_content);
+    
+              // Popup for marker 23  
+              var popup23_content = '<h2>Brundage J</h2><br>';
+              popup23_content += '<img class="popupImage" alt="Four University of Oregon skiers pose for a picture on top of a mountain" src="Images_ContentforPopups/BrundageJunior.jpg" type="img/jpeg">' ;
+              popup23_content += 'Image Source: My Own';
+        
+              var popup23 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup23_content);
+    
+              // Popup for marker 24  
+              var popup24_content = '<h2>Snoqualmie Pass J</h2><br>';
+              popup24_content += '<div class="popupImages">';
+              popup24_content += '<img class="popupImage" alt="Five college ski racers lay in the snow in their colorful race suits" src="Images_ContentforPopups/Snoqualmie_SnowAngel.jpg" type="img/jpeg">';
+              popup24_content += '<img class="popupImage" alt="Ski hill with a snowy mountain in the background" src="Images_ContentforPopups/Snoqualmie_MountainPIC.jpg" type="img/jpeg">';
+              // Add more images here as needed
+              popup24_content += '</div>';
+              popup24_content += 'Image Source: My Own';
+
+              var popup24 = new mapboxgl.Popup({ minWidth:'300px' }).setHTML(popup24_content);
+
+
+              // Popup for marker 25  
+              var popup25_content = '<h2>Bogus Basin Boise J</h2><br>';
+              popup25_content += '<img class="popupImage" alt="Two girls embrace on top of the ski hill" src="Images_ContentforPopups/BogusBasin_MeMar.jpg" type="img/jpeg">' ;
+              popup25_content += 'Image Source: My Own';
+        
+              var popup25 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup25_content);
+    
+              // Popup for marker 26  
+              var popup26_content = '<h2>Mammoth Lakes J</h2><br>';
+              popup26_content += '<div class="popupImages">';
+              popup26_content += '<img class="popupImage" alt="One woman stands against a giant wall of snow that is over fifteen feet tall" src="Images_ContentforPopups/MammothSnowHeight.jpg" type="img/jpeg">';
+              popup26_content += '<img class="popupImage" alt="Six skiers from the University of Oregon womens team sit on top of a white van" src="Images_ContentforPopups/Mammoth_NattysVanPic.jpeg" type="img/jpeg">';
+              // Add more images here as needed
+              popup26_content += '</div>';
+              popup26_content += 'Image Source: My Own';
+        
+              var popup26 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup26_content);
+    
+              // Popup for marker 27  
+              var popup27_content = '<h2>Eugene Duckling</h2><br>';
+              popup27_content += '<img class="popupImage" alt="Green grass in the foreground and sailboats in the background at the lake" src="Images_ContentforPopups/Eugene_DucklingJunior.JPG" type="img/jpeg">' ;
+              popup27_content += 'Image Source: My Own';
+        
+              var popup27 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup27_content);
+    
+              // Popup for marker 28  
+              var popup28_content = '<h2>Cascade Locks Rainier J</h2><br>';
+              popup28_content += '<div class="popupImages">';
+              popup28_content += '<img class="popupImage" alt="Two women stand next to each other in life vests" src="Images_ContentforPopups/Rainer_MeAvey_Junior.jpg" type="img/jpeg">';
+              popup28_content += '<img class="popupImage" alt="Action shot of a sailboat in windy conditions" src="Images_ContentforPopups/Rainer_MeKateEpic_Junior.jpg" type="img/jpeg">';
+              // Add more images here as needed
+              popup28_content += '</div>';
+              popup28_content += 'Image Source: My Own';
+        
+              var popup28 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup28_content);
+    
+              // Popup for marker 29  
+              var popup29_content = '<h2>Orcas Island J</h2><br>';
+              popup29_content += '<div class="popupImages">';
+              popup29_content += '<img class="popupImage" alt="Eight sailboats with colorful sails in a bay" src="Images_ContentforPopups/OrcasIsland_Junior.JPG" type="img/jpeg">';
+              popup29_content += '<img class="popupImage" alt="Two people stand beside water with clouds and a mountain behind them" src="Images_ContentforPopups/Orcas_KishMe.jpeg" type="img/jpeg">';
+              // Add more images here as needed
+              popup29_content += '</div>';
+              popup29_content += 'Image Source: My Own';
+        
+              var popup29 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup29_content);
+    
+              // Popup for marker 30 
+              var popup30_content = '<h2>Gorge Invite Cascade Locks Junior</h2><br>';
+              popup30_content += '<img class="popupImage" alt="A group of college students sitting and standing around a picnic table while camping" src="Images_ContentforPopups/Gorge_Junior.jpg" type="img/jpeg">' ;
+              popup30_content += 'Image Source: My Own';
+        
+              var popup30 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup30_content);
+    
+              // Popup for marker 31 Start Senior Year  
+              var popup31_content = '<h2>Seattle Cascadia S</h2><br>';
+              popup31_content += '<img class="popupImage" alt="College sailors rig their boat" src="Images_ContentforPopups/Cascadia_Senior.JPG" type="img/jpeg">' ;
+              popup31_content += 'Image Source: My Own';
+        
+              var popup31 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup31_content);
+    
+
+              // Popup for marker 32 
+              var popup32_content = '<h2>Eugene Outlaw S</h2><br>';
+              popup32_content += '<img class="popupImage" alt="Two women in sailing gear laugh on a wooden deck" src="Images_ContentforPopups/EugeneOutlaw_Senior.JPG" type="img/jpeg">' ;
+              popup32_content += 'Image Source: My Own';
+        
+              var popup32 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup32_content);
+    
+              // Popup for marker 33  
+              var popup33_content = '<h2>Seattle North North S</h2><br>';
+              popup33_content += '<div class="popupImages">';
+              popup33_content += '<img class="popupImage" alt="A sailboat going downwind" src="Images_ContentforPopups/NorthNorth_Senior.JPG" type="img/jpeg">';
+              popup33_content += '<img class="popupImage" alt="Aidan stands in sailing gear in the center of the image with other people nearby" src="Images_ContentforPopups/NorthNorth_SeniorME.JPG" type="img/jpeg">';
+              popup33_content += '</div>';
+              popup33_content += 'Image Source: My Own';
+        
+              var popup33 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup33_content);
+    
+              // Popup for marker 34  
+              var popup34_content = '<h2>Bellingham Frosh Soph S</h2><br>';
+              popup34_content += '<img class="popupImage" alt="Group photo of the University of Oregon sailing team on a dock with Lake Whatcom in the background" src="Images_ContentforPopups/Bellingham_Senior.JPG" type="img/jpeg">' ;
+              popup34_content += '<img class="popupImage" alt="Four women sit at the end of a dock with their backs turned on a cloudy day with small mountains in the background" src="Images_ContentforPopups/BellingHAM_Dock_S.JPG" type="img/jpeg">';
+              popup34_content += '</div>';
+              popup34_content += 'Image Source: My Own';
+        
+              var popup34 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup34_content);
+    
+              // Popup for marker 35  
+              var popup35_content = '<h2>LA Rosebowl S</h2><br>';
+              popup35_content += '<img class="popupImage" alt="A sandy beach with the sun high in the sky over the ocean with a few boats in the background" src="Images_ContentforPopups/Rosebowl.JPG" type="img/jpeg">' ;
+              popup35_content += 'Image Source: My Own';
+        
+              var popup35 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup35_content);
+
+              // Popup for marker 36  Brundage_Senior.JPG
+              var popup36_content = '<h2>Brundage S</h2><br>';
+              popup36_content += '<img class="popupImage" alt="Ski hill with skiers setting up a giant slalom course with a foggy background in the valley below" src="Images_ContentforPopups/Brundage_Senior.JPG" type="img/jpeg">' ;
+              popup36_content += 'Image Source: My Own';
+        
+              var popup36 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup36_content);
+    
+              // Popup for marker 37  LookoutPass_DraggingSophia.JPG
+              var popup37_content = '<h2>Lookout Pass S</h2><br>';
+              popup37_content += '<img class="popupImage" alt="Aidan leans on her slalom poles on the ski hill while its snowing" src="Images_ContentforPopups/LookoutPass_Senior_MeSlalom.jpg" type="img/jpeg">' ;
+              popup37_content += '<img class="popupImage" alt="Aidan stands in a grocery store with a plastic duck both wearing sunglasses" src="Images_ContentforPopups/LookoutPass_DuckMeSunglasses.jpg" type="img/jpeg">';
+              popup37_content += '</div>';
+              popup37_content += 'Image Source: My Own';
+        
+              var popup37 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup37_content);
+    
+              // Popup for marker 38 
+              var popup38_content = '<h2>Snoqualmie S</h2><br>';
+              popup38_content += '<img class="popupImage" alt="Four female skiers pose for a picture on the ski hill with a chairlift in the left background" src="Images_ContentforPopups/Snoqualmie_SeniorGals.jpg" type="img/jpeg">' ;
+              popup38_content += '<img class="popupImage" alt="Young woman smiles with stickers on her face and a plastic princess crown taped to her ski helment" src="Images_ContentforPopups/SnoqualmiePrincess.jpg" type="img/jpeg">';
+              popup38_content += '</div>';
+              popup38_content += 'Image Source: My Own';
+        
+              var popup38 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup38_content);
+    
+              // Popup for marker 39  
+              var popup39_content = '<h2>Eugene Duckling S</h2><br>';
+
+        
+              var popup39 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup39_content);
+    
+              // Popup for marker 40  
+              var popup40_content = '<h2>Eugene Rainier, weird S</h2><br>';
+
+        
+              var popup40 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup40_content);
+    
+              // Popup for marker 41  
+              var popup41_content = '<h2>Gorge Invite Cascade Locks S</h2><br>';
+
+        
+              var popup41 = new mapboxgl.Popup({ minWidth:'300px' })
+              .setHTML(popup41_content);
+    
+     
+    /***  END POPUPS  ***/  
+
+        
+     /***  MARKERS  ***/
+            // markers go here
+           /***  MARKERS  ***/
+    // Marker 1 - Annapolis
+     var marker1 = new mapboxgl.Marker({color:'#409E91'})
+        .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
+	    .setPopup(popup1) 
+        .addTo(map);
+
+        
+    // Marker 2 - Seattle 
+    var marker2 = new mapboxgl.Marker({color:'MediumBlue'})
+       .setLngLat([-122.25603955653592, 47.68810868087924]) // Seattle1 
+       .setPopup(popup2) 
+       .addTo(map);
+    
+    // Marker 3 - Eugene1
+    var marker3 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-123.3134840090948, 44.120480118319755]) // Eugene1
+      .setPopup(popup3)
+      .addTo(map);
+
+        
+    // Marker 4 - Bellingham
+    var marker4 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-122.33659615985495, 48.73715947872702]) // Bellingham
+      .setPopup(popup4)
+      .addTo(map);
+        
+    // Marker 5 - Seattle2
+    var marker5 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-122.23225452269152, 47.67363684011854]) // Seattle2
+      .setPopup(popup5)
+      .addTo(map);
+    
+    // Marker 6 - BlackButte1 Hoodoo
+    var marker6 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-121.86084256143931, 44.40819467595015]) // BlackButte1 Hoodoo
+      .setPopup(popup6)
+      .addTo(map);
+    
+    // Marker 7 - Brundage1
+    var marker7 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-116.15077801023584, 45.00867865199474]) // Brundage1
+      .setPopup(popup7)
+      .addTo(map);
+    
+    // Marker 8 - 49DegreesN
+    var marker8 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-117.56292683095484, 48.30123991094011]) // 49DegreesN
+      .setPopup(popup8)
+      .addTo(map);
+    
+    // Marker 9 - Lookout Pass
+    var marker9 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-115.69710172837202, 47.45620565110117]) // LookoutPass
+      .setPopup(popup9)
+      .addTo(map);
+    
+    // Marker 10 - Red Lodge
+    var marker10 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-109.33639544456858, 45.19093661006774]) // Red Lodge
+      .setPopup(popup10)
+      .addTo(map);
+    
+    // Marker 11 - Morro Bay
+    var marker11 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-120.85021533043592, 35.35778621065163]) // Morro Bay
+      .setPopup(popup11)
+      .addTo(map);
+    
+    // Marker 12 - Vallejo
+    var marker12 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-122.23064810989075, 38.0657940051278]) // Vallejo
+      .setPopup(popup12)
+      .addTo(map);
+    
+    // Marker 13 - Orcas Island 1
+    var marker13 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-122.98107825834987, 48.633046189814266]) // Orcas Island 1
+      .setPopup(popup13)
+      .addTo(map);
+    
+    // Marker 14 - Rainer Cascade Locks
+    var marker14 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-121.88708757595536, 45.67755921345878]) // Rainer Cascade Locks
+      .setPopup(popup14)
+      .addTo(map);
+    
+    // Marker 15 - Gorge Cascade Locks - End of Sophomore Year
+    var marker15 = new mapboxgl.Marker({color:'MediumBlue'})
+      .setLngLat([-121.89094995672524, 45.67761918294506]) // Gorge Cascade Locks
+      .setPopup(popup15)
+      .addTo(map);
+    
+    // Marker 16 - Seattle3 - Beginning of Junior Year
+     var marker16 = new mapboxgl.Marker({color:'Teal'})
+        .setLngLat([-122.22924296818425, 47.683383764335055]) // Seattle3
+	    .setPopup(popup16) 
+        .addTo(map);
+
+        
+    // Marker 17 - Eugene2
+    var marker17 = new mapboxgl.Marker({color:'Teal'})
+       .setLngLat([-123.32153699714587, 44.10847639101417]) // Eugene2
+       .setPopup(popup17) 
+       .addTo(map);
+    
+    // Marker 18 - Seattle4
+    var marker18 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-122.26484793097914, 47.6889464595122]) // Seattle 4
+      .setPopup(popup18)
+      .addTo(map);
+
+        
+    // Marker 19 - Bellingham2
+    var marker19 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-122.34072066291996, 48.72936929241587]) // Bellingham2
+      .setPopup(popup19)
+      .addTo(map);
+        
+    // Marker 20 - Black Butte Ranch2
+    var marker20 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-121.87143725994065, 44.408758835876476]) // Black Butte Ranch2
+      .setPopup(popup20)
+      .addTo(map);
+    
+    // Marker 21 - Silver Mountain
+    var marker21 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-116.11920867287779, 47.49915960669005]) // Silver Mountain
+      .setPopup(popup21)
+      .addTo(map);
+    
+    // Marker 22 - Anthony Lakes
+    var marker22 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-118.23393243108417, 44.96268409010189]) // Anthony Lakes
+      .setPopup(popup22)
+      .addTo(map);
+    
+    // Marker 23 - Brundage
+    var marker23 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-116.15441211476177, 45.00552885353043]) // Brundage
+      .setPopup(popup23)
+      .addTo(map);
+    
+    // Marker 24 - Snoqualmie Pass1
+    var marker24 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-121.41645477516795, 47.42504270952052]) // Snoqualmie Pass1
+      .setPopup(popup24)
+      .addTo(map);
+    
+    // Marker 25 - Boise, Bogus Basin ID
+    var marker25 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-116.10278849694119, 43.76476872727828]) // Boise, Bogus Basin ID
+      .setPopup(popup25)
+      .addTo(map);
+    
+    // Marker 26 - Mammoth Lakes
+    var marker26 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-119.02619079458566, 37.63967330319432]) // Mammoth Lakes
+      .setPopup(popup26)
+      .addTo(map);
+    
+    // Marker 27 - Eugene Duckling Regatta
+    var marker27 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-123.31318551947251, 44.11599520722522]) // Eugene Duckling Regatta
+      .setPopup(popup27)
+      .addTo(map);
+    
+    // Marker 28 - Cascade Locks Rainer
+    var marker28 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-121.89721559664079, 45.673091305977955]) // Cascade Locks Rainer
+      .setPopup(popup28)
+      .addTo(map);
+    
+    // Marker 29 - Orcas Island 2
+    var marker29 = new mapboxgl.Marker({color:'Teal'})
+      .setLngLat([-122.95761000883107, 48.63157719627219]) // Orcas Island 2
+      .setPopup(popup29)
+      .addTo(map);
+    
+    // Marker 30 - Gorge Invite Cascade Locks- End of Junior Year
+    var marker30 = new mapboxgl.Marker({color:'Orange'})
+      .setLngLat([-121.89148638972443, 45.672319206030885]) // Gorge Invite Cascade Locks
+      .setPopup(popup30)
+      .addTo(map);
+    
+    // Marker 31 - Seattle - Start of Senior Year
+    var marker31 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-122.23566016413672, 47.69668729287325]) // Seattle - Start of Senior Year
+      .setPopup(popup31)
+      .addTo(map);
+    
+    // Marker 32 - Eugene Outlaw
+    var marker32 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-123.30605878541829, 44.10936454794704]) // Eugene Outlaw
+      .setPopup(popup32)
+      .addTo(map);
+    
+    // Marker 33 - Seattle North/North
+    var marker33 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-122.26882444535993, 47.69717306635021]) // Seattle North/North
+      .setPopup(popup33)
+      .addTo(map);
+    
+    // Marker 34 - Bellingham Frosh/Soph
+    var marker34 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-122.34671786126285, 48.73671702843705]) // Bellingham Frosh/Soph
+      .setPopup(popup34)
+      .addTo(map);
+    
+    // Marker 35 - Los Angeles Rose Bowl
+    var marker35 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-118.13969280327575, 33.75551028554111]) // Los Angeles Rose Bowl
+      .setPopup(popup35)
+      .addTo(map);
+    
+    // Marker 36 - Brundage ID
+    var marker36 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-116.15574248773024, 45.002790350201685]) // Brundage ID
+      .setPopup(popup36)
+      .addTo(map);
+    
+    // Marker 37 - Lookout Pass
+    var marker37 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-115.69775324085909, 47.45170344481202]) // Lookout Pass
+      .setPopup(popup37)
+      .addTo(map);
+    
+    // Marker 38 - Snoqualmie
+    var marker38 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-121.40603874667227, 47.39771760560306]) // Snoqualmie
+      .setPopup(popup38)
+      .addTo(map);
+    
+    // Marker 39 - Eugene Duckling
+    var marker39 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-123.30569463631804, 44.09733600850674]) // Eugene Duckling
+      .setPopup(popup39)
+      .addTo(map);
+    
+    // Marker 40 - Eugene Rainier
+    var marker40 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-123.28791203896841, 44.10509382491906]) // Eugene Rainier
+      .setPopup(popup40)
+      .addTo(map);
+    
+    // Marker 41 - Gorge Invite Cascade Locks
+    var marker41 = new mapboxgl.Marker({color:'Purple'})
+      .setLngLat([-121.88910459702407, 45.67408087328756]) // Gorge Invite Cascade Locks
+      .setPopup(popup41)
+      .addTo(map);
+        
+
+        /***  END MARKERS  ***/
+    
+    // Set minimum zoom level
+        map.setMinZoom(4.5); // Set your minimum zoom level here
+    
+    // Set maximum zoom level
+        map.setMaxZoom(12); // Set your maximum zoom level here
+    
+    // Add zoom in and zoom out functionality to buttons
+    document.getElementById('zoom-in').addEventListener('click', function () {
+        map.zoomIn();
+    });
+
+    document.getElementById('zoom-out').addEventListener('click', function () {
+        map.zoomOut();
+    });
+    
+</script>
+
+</body>
+</html>
+
