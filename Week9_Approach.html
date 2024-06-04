@@ -8,7 +8,6 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://icons8.com/icon/g0OqZLFvAecI/skiing">
     <style>
         body, html {
             margin: 0;
@@ -38,7 +37,7 @@
         }
         .button {
             padding: 15px 30px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             cursor: pointer;
             background-color: darkseagreen;
             color: #fff;
@@ -50,16 +49,16 @@
             transition: background-color 0.3s; /* Added transition for smooth color change */
         }
         .button:nth-child(1):hover {
-            background-color: #D4FBFA; /* Change color for Freshman Year button */
+            background-color: #ADDAF3; /* Change color for Freshman Year button */
         }
         .button:nth-child(2):hover {
-            background-color: #D4FBFA; /* Change color for Sophomore Year button */
+            background-color: #ADDAF3; /* Change color for Sophomore Year button */
         }
         .button:nth-child(3):hover {
-            background-color: #D4FBFA; /* Change color for Junior Year button */
+            background-color: #ADDAF3; /* Change color for Junior Year button */
         }
         .button:nth-child(4):hover {
-            background-color: #D4FBFA; /* Change color for Senior Year button */
+            background-color: #ADDAF3; /* Change color for Senior Year button */
         }
         .title {
             font-size: 24px;
@@ -109,8 +108,8 @@
 
         #zoom-buttons {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 20px;
+            right: 20px;
             z-index: 1;
             display: flex;
             flex-direction: column; /* Stack buttons vertically */
@@ -126,7 +125,8 @@
 <div id="map"></div>
 <div class="side-panel">
     <div class="title">Aidan's Athletic Adventures
-    <h5> Click a button to travel through time</h5></div>
+    <h4> Click through the buttons to go to the locations of each of my trips! Repeatedly clicking the same button will take you through my travels for that year and return back to Eugene when finished.</h4>
+    </div>
     <div class="button-container">
         <button class="button" onclick="flyToNextLocation(0)">Freshman Year</button>
         <button class="button" onclick="flyToNextLocation(1)">Sophomore Year</button>
@@ -134,8 +134,11 @@
         <button class="button" onclick="flyToNextLocation(3)">Senior Year</button>
     </div>
     <div style="padding: 20px;">
-        <h3> Description</h3>
-        <p> The sailing team was epic wooooo. The alpine team was also epic most of the time woooooo! Yada yada yada</p>
+        <h4>A = Alpine Ski</h4>
+        <h4>S = Sailing</h4>
+        <h3><u>What does this map show?</u></h3>
+        <h6> In college I spent four years on the alpine ski and sailing club sports teams traveling around the Pacific Northwest and beyond. I only traveled once during my freshman year due to the pandemic, but the other three years I traveled about twelve to fourteen times per year. I met some of my closest friends on these teams and I was able to see a large part of the West Coast through my travels. Every trip except two were taken in 12 passenger vans, driving from three to 18 hours at a time! This map shows where I traveled for each year of college, by clicking the buttons above you will move from place to place in the order of trips taken.</h6>
+        <p>By: Aidan Clark</p>
     </div>
     </div>
 
@@ -156,7 +159,7 @@
         [
             { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
             { name: 'Seattle1', coordinates: [-122.25603955653592, 47.68810868087924] },
-            { name: 'Eugene1', coordinates: [-123.3134840090948, 44.120480118319755] },
+            { name: 'Eugene1', coordinates: [-123.29440298624444, 44.10970633784268] },
             { name: 'Bellingham1', coordinates: [-122.33659615985495, 48.73715947872702] },
             { name: 'Seattle2', coordinates: [-122.23225452269152, 47.67363684011854] },
             { name: 'BlackButte', coordinates: [-121.86084256143931, 44.40819467595015] },
@@ -646,8 +649,8 @@
      /***  MARKERS  ***/
             // markers go here
            /***  MARKERS  ***/
-    // Function to create a marker element with a number inside
-    function createMarkerElement(number, color) {
+    // Function to create a marker element with a letter inside
+    function createMarkerElement(letter, color) {
         var el = document.createElement('div');
         el.className = 'marker';
         el.style.background = color;
@@ -659,7 +662,7 @@
         el.style.fontWeight = 'bold';
         el.style.textAlign = 'center';
         el.style.lineHeight = '30px';
-        el.innerHTML = number;
+        el.innerHTML = letter; // Insert the letter inside the marker
         return el;
     }
 
@@ -667,7 +670,7 @@
     var marker1 = new mapboxgl.Marker({
             color: '#859805',
             // Add number 1 inside the marker
-            element: createMarkerElement('1', '#859805')
+            element: createMarkerElement('S', '#859805')
         })
         .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
         .setPopup(popup1) 
@@ -676,7 +679,7 @@
     // Marker 2 - Seattle 
     var marker2 = new mapboxgl.Marker({
         color: '#19B298',
-        element: createMarkerElement('1', '#19B298')
+        element: createMarkerElement('S', '#19B298')
         })
        .setLngLat([-122.2521300855248, 47.690308283518036]) // Seattle1 
        .setPopup(popup2) 
@@ -685,9 +688,9 @@
     // Marker 3 - Eugene1
     var marker3 = new mapboxgl.Marker({
         color: '#19B298',
-        element: createMarkerElement('1', '#19B298')
+        element: createMarkerElement('S', '#19B298')
         })
-      .setLngLat([-123.29440298624444, 44.10970633784268]) // Eugene1
+      .setLngLat([-123.28791203896841, 44.10509382491906]) // Eugene1
       .setPopup(popup3)
       .addTo(map);
 
@@ -695,7 +698,7 @@
     // Marker 4 - Bellingham
     var marker4 = new mapboxgl.Marker({
         color: '#19B298',
-        element: createMarkerElement('1', '#19B298')
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-122.33659615985495, 48.73715947872702]) // Bellingham
       .setPopup(popup4)
@@ -704,7 +707,7 @@
     // Marker 5 - Seattle2
     var marker5 = new mapboxgl.Marker({
         color: '#19B298',
-        element: createMarkerElement('2', '#19B298')
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-122.25049141614444, 47.6947202970247]) // Seattle2
       .setPopup(popup5)
@@ -712,8 +715,8 @@
     
     // Marker 6 - BlackButte1 Hoodoo
     var marker6 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('A', '#19B298')
         })
       .setLngLat([-121.86084256143931, 44.40819467595015]) // BlackButte1 Hoodoo
       .setPopup(popup6)
@@ -721,8 +724,8 @@
     
     // Marker 7 - Brundage1
     var marker7 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('A', '#19B298')
         })
       .setLngLat([-116.15077801023584, 45.00867865199474]) // Brundage1
       .setPopup(popup7)
@@ -730,8 +733,8 @@
     
     // Marker 8 - 49DegreesN
     var marker8 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('A', '#19B298')
         })
       .setLngLat([-117.56292683095484, 48.30123991094011]) // 49DegreesN
       .setPopup(popup8)
@@ -739,8 +742,8 @@
     
     // Marker 9 - Lookout Pass
     var marker9 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+          color: '#19B298',
+        element: createMarkerElement('A', '#19B298')
         })
       .setLngLat([-115.69710172837202, 47.45620565110117]) // LookoutPass
       .setPopup(popup9)
@@ -748,8 +751,8 @@
     
     // Marker 10 - Red Lodge
     var marker10 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('A', '#19B298')
         })
       .setLngLat([-109.33639544456858, 45.19093661006774]) // Red Lodge
       .setPopup(popup10)
@@ -757,8 +760,8 @@
     
     // Marker 11 - Morro Bay
      var marker11 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-120.85021533043592, 35.35778621065163]) // Morro Bay
       .setPopup(popup11)
@@ -766,8 +769,8 @@
     
     // Marker 12 - Vallejo
     var marker12 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-122.23064810989075, 38.0657940051278]) // Vallejo
       .setPopup(popup12)
@@ -775,8 +778,8 @@
     
     // Marker 13 - Orcas Island 1
     var marker13 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-122.98107825834987, 48.633046189814266]) // Orcas Island 1
       .setPopup(popup13)
@@ -784,176 +787,228 @@
     
     // Marker 14 - Rainer Cascade Locks
     var marker14 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('1', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('S', '#19B298')
         })
-      .setLngLat([-121.89094995672524, 45.67761918294506]) // Rainer Cascade Locks
+      .setLngLat([-121.89232485999939, 45.6796123145392]) // Rainer Cascade Locks
       .setPopup(popup14)
       .addTo(map);
     
     // Marker 15 - Gorge Cascade Locks - End of Sophomore Year
     var marker15 = new mapboxgl.Marker({
-        color: '#859805',
-        element: createMarkerElement('2', '#859805')
+        color: '#19B298',
+        element: createMarkerElement('S', '#19B298')
         })
       .setLngLat([-121.88708757595536, 45.67755921345878]) // Gorge Cascade Locks
       .setPopup(popup15)
       .addTo(map);
     
     // Marker 16 - Seattle3 - Beginning of Junior Year
-     var marker16 = new mapboxgl.Marker({color:'#237AA3'})
-        .setLngLat([-122.22924296818425, 47.683383764335055]) // Seattle3
+     var marker16 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
+        .setLngLat([-122.23761976178267, 47.692370930598514]) // Seattle3
 	    .setPopup(popup16) 
         .addTo(map);
 
         
     // Marker 17 - Eugene2
-    var marker17 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker17 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
        .setLngLat([-123.31400051453193, 44.10516234130953]) // Eugene2
        .setPopup(popup17) 
        .addTo(map);
     
     // Marker 18 - Seattle4
-    var marker18 = new mapboxgl.Marker({color:'#237AA3'})
-      .setLngLat([-122.26484793097914, 47.6889464595122]) // Seattle 4
+    var marker18 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
+      .setLngLat([-122.23802850496591, 47.68485018110681]) // Seattle 4
       .setPopup(popup18)
       .addTo(map);
 
         
     // Marker 19 - Bellingham2
-    var marker19 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker19 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
       .setLngLat([-122.34072066291996, 48.72936929241587]) // Bellingham2
       .setPopup(popup19)
       .addTo(map);
         
     // Marker 20 - Black Butte Ranch2
-    var marker20 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker20 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-121.87143725994065, 44.408758835876476]) // Black Butte Ranch2
       .setPopup(popup20)
       .addTo(map);
     
     // Marker 21 - Silver Mountain
-    var marker21 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker21 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-116.11920867287779, 47.49915960669005]) // Silver Mountain
       .setPopup(popup21)
       .addTo(map);
     
     // Marker 22 - Anthony Lakes
-    var marker22 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker22 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-118.23393243108417, 44.96268409010189]) // Anthony Lakes
       .setPopup(popup22)
       .addTo(map);
     
     // Marker 23 - Brundage
-    var marker23 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker23 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-116.15441211476177, 45.00552885353043]) // Brundage
       .setPopup(popup23)
       .addTo(map);
     
     // Marker 24 - Snoqualmie Pass1
-    var marker24 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker24 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-121.41645477516795, 47.42504270952052]) // Snoqualmie Pass1
       .setPopup(popup24)
       .addTo(map);
     
     // Marker 25 - Boise, Bogus Basin ID
-    var marker25 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker25 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-116.10278849694119, 43.76476872727828]) // Boise, Bogus Basin ID
       .setPopup(popup25)
       .addTo(map);
     
     // Marker 26 - Mammoth Lakes
-    var marker26 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker26 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('A', '#237AA3')
+        })
       .setLngLat([-119.02619079458566, 37.63967330319432]) // Mammoth Lakes
       .setPopup(popup26)
       .addTo(map);
     
     // Marker 27 - Eugene Duckling Regatta
-    var marker27 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker27 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
       .setLngLat([-123.31593985326869, 44.0984922944301]) // Eugene Duckling Regatta
       .setPopup(popup27)
       .addTo(map);
     
     // Marker 28 - Cascade Locks Rainer
-    var marker28 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker28 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
       .setLngLat([-121.89721559664079, 45.673091305977955]) // Cascade Locks Rainer
       .setPopup(popup28)
       .addTo(map);
     
     // Marker 29 - Orcas Island 2
-    var marker29 = new mapboxgl.Marker({color:'#237AA3'})
+    var marker29 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
       .setLngLat([-122.95761000883107, 48.63157719627219]) // Orcas Island 2
       .setPopup(popup29)
       .addTo(map);
     
     // Marker 30 - Gorge Invite Cascade Locks- End of Junior Year
-    var marker30 = new mapboxgl.Marker({color:'#237AA3'})
-      .setLngLat([-121.89148638972443, 45.672319206030885]) // Gorge Invite Cascade Locks
+    var marker30 = new mapboxgl.Marker({color: '#237AA3',
+        element: createMarkerElement('S', '#237AA3')
+        })
+      .setLngLat([-121.89738363256498, 45.67618155857839]) // Gorge Invite Cascade Locks
       .setPopup(popup30)
       .addTo(map);
     
-    // Marker 31 - Seattle - Start of Senior Year
-    var marker31 = new mapboxgl.Marker({color:'Purple'})
-      .setLngLat([-122.23566016413672, 47.69668729287325]) // Seattle - Start of Senior Year
+    // Marker 31 - Seattle Cascadia - Start of Senior Year 
+    var marker31 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
+      .setLngLat([-122.22924296818425, 47.683383764335055]) // Seattle 
       .setPopup(popup31)
       .addTo(map);
     
     // Marker 32 - Eugene Outlaw
-    var marker32 = new mapboxgl.Marker({color:'Purple'})
+    var marker32 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
       .setLngLat([-123.30605878541829, 44.10936454794704]) // Eugene Outlaw
       .setPopup(popup32)
       .addTo(map);
     
     // Marker 33 - Seattle North/North
-    var marker33 = new mapboxgl.Marker({color:'Purple'})
-      .setLngLat([-122.26882444535993, 47.69717306635021]) // Seattle North/North
+    var marker33 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
+      .setLngLat([-122.22671994356274, 47.69191237935943]) // Seattle
       .setPopup(popup33)
       .addTo(map);
     
     // Marker 34 - Bellingham Frosh/Soph
-    var marker34 = new mapboxgl.Marker({color:'Purple'})
+    var marker34 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
       .setLngLat([-122.34671786126285, 48.73671702843705]) // Bellingham Frosh/Soph
       .setPopup(popup34)
       .addTo(map);
     
     // Marker 35 - Los Angeles Rose Bowl
-    var marker35 = new mapboxgl.Marker({color:'Purple'})
+    var marker35 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
       .setLngLat([-118.13969280327575, 33.75551028554111]) // Los Angeles Rose Bowl
       .setPopup(popup35)
       .addTo(map);
     
     // Marker 36 - Brundage ID
-    var marker36 = new mapboxgl.Marker({color:'Purple'})
+    var marker36 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('A', 'Purple')
+        })
       .setLngLat([-116.15574248773024, 45.002790350201685]) // Brundage ID
       .setPopup(popup36)
       .addTo(map);
     
     // Marker 37 - Lookout Pass
-    var marker37 = new mapboxgl.Marker({color:'Purple'})
+    var marker37 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('A', 'Purple')
+        })
       .setLngLat([-115.69775324085909, 47.45170344481202]) // Lookout Pass
       .setPopup(popup37)
       .addTo(map);
     
     // Marker 38 - Snoqualmie
-    var marker38 = new mapboxgl.Marker({color:'Purple'})
+    var marker38 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('A', 'Purple')
+        })
       .setLngLat([-121.40603874667227, 47.39771760560306]) // Snoqualmie
       .setPopup(popup38)
       .addTo(map);
     
     // Marker 39 - Eugene Duckling
-    var marker39 = new mapboxgl.Marker({color:'Purple'})
+    var marker39 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
       .setLngLat([-123.30569463631804, 44.09733600850674]) // Eugene Duckling
       .setPopup(popup39)
       .addTo(map);
     
     // Marker 40 - Eugene Rainier
-    var marker40 = new mapboxgl.Marker({color:'Purple'})
-      .setLngLat([-123.28791203896841, 44.10509382491906]) // Eugene Rainier
+    var marker40 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
+      .setLngLat([-123.29440298624444, 44.10970633784268]) // Eugene Rainier
       .setPopup(popup40)
       .addTo(map);
     
     // Marker 41 - Gorge Invite Cascade Locks
-    var marker41 = new mapboxgl.Marker({color:'Purple'})
+    var marker41 = new mapboxgl.Marker({color: 'Purple',
+        element: createMarkerElement('S', 'Purple')
+        })
       .setLngLat([-121.88910459702407, 45.67408087328756]) // Gorge Invite Cascade Locks
       .setPopup(popup41)
       .addTo(map);
@@ -962,7 +1017,7 @@
         /***  END MARKERS  ***/
     
     // Set minimum zoom level
-        map.setMinZoom(4.5); // Set your minimum zoom level here
+        map.setMinZoom(4.3); // Set your minimum zoom level here
     
     // Set maximum zoom level
         map.setMaxZoom(14); // Set your maximum zoom level here
