@@ -8,8 +8,7 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
-
+    <link href="https://icons8.com/icon/g0OqZLFvAecI/skiing">
     <style>
         body, html {
             margin: 0;
@@ -632,7 +631,7 @@
     
               // Popup for marker 41  
               var popup41_content = '<h2><u>Gorge Invite</u></h2><h4>Senior Year - 2024</h4><h5>Cascade Locks, OR</h5>';
-                  popup41_content += '<h5>This was my last ever college regatta! All my friends that had graduated came back as alumni and we saw the Northern Lights, so it was an amazing trip all around.</h5>';
+                  popup41_content += '<h5>This was my last ever college regatta! All my friends that had graduated came back and we saw the Northern Lights, so it was an amazing trip all around.</h5>';
                   popup41_content += '<img class="popupImage" alt="Northern Lights over the Columbia River Gorge with the moon in the background left" src="Images_ContentforPopups/NorthernLights_GorgeSenior.JPG" type="img/jpeg">' ;
                   popup41_content += '<img class="popupImage" alt="Five sailors pose for a picture with a river in the background" src="Images_ContentforPopups/Alumni_GorgeSenior.JPG" type="img/jpeg">';
                   popup41_content += '</div>';
@@ -648,33 +647,31 @@
             // markers go here
            /***  MARKERS  ***/
     // Function to create a marker element with a number inside
-function createMarkerElement(iconClass, color) {
-    var el = document.createElement('div');
-    el.className = 'marker';
-    el.style.background = color;
-    el.style.width = '30px';
-    el.style.height = '30px';
-    el.style.borderRadius = '50%';
-    el.style.color = 'white';
-    el.style.fontSize = '18px';
-    el.style.fontWeight = 'bold';
-    el.style.textAlign = 'center';
-    el.style.lineHeight = '30px';
-    // Set the inner HTML to the skier icon
-    el.innerHTML = '<i class="' + iconClass + '"></i>';
-    return el;
-}
+    function createMarkerElement(number, color) {
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.style.background = color;
+        el.style.width = '30px';
+        el.style.height = '30px';
+        el.style.borderRadius = '50%';
+        el.style.color = 'white';
+        el.style.fontSize = '18px';
+        el.style.fontWeight = 'bold';
+        el.style.textAlign = 'center';
+        el.style.lineHeight = '30px';
+        el.innerHTML = number;
+        return el;
+    }
 
-// Marker 1 - Annapolis
-var marker1 = new mapboxgl.Marker({
-    color: '#859805',
-    // Add skier icon inside the marker
-    element: createMarkerElement('fas fa-skier', '#859805') // Use Font Awesome skier icon class
-})
-.setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
-.setPopup(popup1) 
-.addTo(map);
-
+    // Marker 1 - Annapolis
+    var marker1 = new mapboxgl.Marker({
+            color: '#859805',
+            // Add number 1 inside the marker
+            element: createMarkerElement('1', '#859805')
+        })
+        .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
+        .setPopup(popup1) 
+        .addTo(map);
         
     // Marker 2 - Seattle 
     var marker2 = new mapboxgl.Marker({
