@@ -8,7 +8,8 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="https://icons8.com/icon/g0OqZLFvAecI/skiing">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+
     <style>
         body, html {
             margin: 0;
@@ -50,16 +51,16 @@
             transition: background-color 0.3s; /* Added transition for smooth color change */
         }
         .button:nth-child(1):hover {
-            background-color: #9B9E40; /* Change color for Freshman Year button */
+            background-color: #D4FBFA; /* Change color for Freshman Year button */
         }
         .button:nth-child(2):hover {
-            background-color: #9B9E40; /* Change color for Sophomore Year button */
+            background-color: #D4FBFA; /* Change color for Sophomore Year button */
         }
         .button:nth-child(3):hover {
-            background-color: #9B9E40; /* Change color for Junior Year button */
+            background-color: #D4FBFA; /* Change color for Junior Year button */
         }
         .button:nth-child(4):hover {
-            background-color: #9B9E40; /* Change color for Senior Year button */
+            background-color: #D4FBFA; /* Change color for Senior Year button */
         }
         .title {
             font-size: 24px;
@@ -91,16 +92,16 @@
         
         /* Different background colors for buttons */
         .button:nth-child(1) {
-            background-color: #2ECDC5;
+            background-color: #859805;
         }
         .button:nth-child(2) {
-            background-color: #407C9E;
+            background-color: #19B298;
         }
         .button:nth-child(3) {
-            background-color: #404D9E;
+            background-color: #237AA3;
         }
         .button:nth-child(4) {
-            background-color: #91409E ;
+            background-color: Purple;
         }
         
         .popupImage {
@@ -220,7 +221,7 @@
         map.flyTo({
             center: locationSet[currentIndex].coordinates,
             essential: true, // this animation is considered essential with respect to prefers-reduced-motion media query
-            duration: 7000 // Adjust the duration (in milliseconds) to slow down the flyover animation
+            duration: 5000 // Adjust the duration (in milliseconds) to slow down the flyover animation
             });
         currentIndex++;
             } else {
@@ -232,18 +233,19 @@
             /***  POPUPS  ***/
             // popups go here
               // Popup for marker 1
-              var popup1_content = '<h2>Sailing Nationals!</h2><br>';
-              popup1_content += '<h5>This was my first ever club sports trip, and it was to compete in ICSA Sailing Nationals at the U.S. Naval Academy in Annapolis, Maryland. I barely knew how to sail and we were the worst team to ever compete in this event in its history (not kidding), but we had a damn good time!</h5>';
-              popup1_content += '<img class="popupImage" alt="Six University of Oregon sailors smile for a picture at the Naval Academy" src="Images_ContentforPopups/Annapolis_Nationals.png" type="img/pneg">' ;
-              popup1_content += 'Image Source: My Own';
+              var popup1_content = '<h2><u>ICSA Nationals</u></h2><h4>Freshman Year - 2021</h4><h5>Annapolis, MD</h5>';
+                  popup1_content += '<h5>This was my first ever club sports trip, and it was to compete in ICSA Sailing Nationals at the U.S. Naval Academy in Annapolis, Maryland. I barely knew how to sail and we were the worst team to ever compete in this event in its history (not kidding), but we had a damn good time!</h5>';
+                  popup1_content += '<img class="popupImage" alt="Six University of Oregon sailors smile for a picture at the Naval Academy" src="Images_ContentforPopups/Annapolis_Nationals.png" type="img/pneg">' ;
+                  popup1_content += 'Image Source: My Own';
         
               var popup1 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup1_content);
        
               // Popup for marker 2  
-              var popup2_content = '<h2>Seattle1</h2><br>';
-              popup2_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Seattle1_Needle.jpg" type="img/pneg">' ;
-              popup2_content += 'Image Source: My Own';
+              var popup2_content = '<h2><u>Cascadia Cup</u></h2><h4>Sophomore Year - 2021</h4><h5>Seattle, WA</h5>';
+                  popup2_content += '<h5>This was my first ever trip to Seattle and the team went to visit the Space Needle after racing all day.</h5>';
+                  popup2_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Seattle1_Needle.jpg" type="img/pneg">' ;
+                  popup2_content += 'Image Source: My Own';
         
         
               var popup2 = new mapboxgl.Popup({ minWidth:'300px' })
@@ -251,158 +253,175 @@
 
     
               // Popup for marker 3  
-              var popup3_content = '<h2>Eugene</h2><br>';
-              popup3_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Eugene1_AveyBoat.JPG" type="img/jpeg">' ;
-              popup3_content += 'Image Source: My Own';
+              var popup3_content = '<h2><u>Outlaw Regatta</u></h2><h4>Sophomore Year - 2021</h4><h5>Eugene, OR</h5>';
+                  popup3_content += '<h5>We host the Outlaw Regatta at Fern Ridge Reservoir in Eugene and the UW, WWU, OSU, and PSU teams travel south to compete. I am pictured below in red.</h5>';
+                  popup3_content += '<img class="popupImage" alt="A group of University of Oregon sailors smile for a picture at the Space Needle in Seattle" src="Images_ContentforPopups/Eugene1_AveyBoat.JPG" type="img/jpeg">' ;
+                  popup3_content += 'Image Source: My Own';
 
         
               var popup3 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup3_content);
         
                // Popup for marker 4  
-              var popup4_content = '<h2>Bellingham</h2><br>';
-              popup4_content += '<img class="popupImage" alt="Two University of Oregon sailors awkwardly fistbump in the rain" src="Images_ContentforPopups/Bellingham1_OGawkFistbump.jpg" type="img/jpeg">' ;
-              popup4_content += 'Image Source: My Own';
+              var popup4_content = '<h2><u>Frosh/Soph Regatta</u></h2><h4>Sophomore Year - 2021</h4><h5>Bellingham, WA</h5>';
+                  popup4_content += '<h5>This regatta is hosted by Western Washington University and is for underclassmen. If you are an upperclassman you have to compete in your non-dominant position (skipper/crew).</h5>';
+                  popup4_content += '<img class="popupImage" alt="Two University of Oregon sailors awkwardly fistbump in the rain" src="Images_ContentforPopups/Bellingham1_OGawkFistbump.jpg" type="img/jpeg">' ;
+                  popup4_content += 'Image Source: My Own';
 
-        
+
               var popup4 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup4_content);
     
               // Popup for marker 5  
-              var popup5_content = '<h2>Seattle</h2><br>';
-              popup5_content += '<img class="popupImage" alt="Five University of Oregon sailors sit stoicly with Lake Washington in the background" src="Images_ContentforPopups/Seattle2_AngryTeam.jpg" type="img/jpeg">' ;
-              popup5_content += 'Image Source: My Own';
+              var popup5_content = '<h2><u>North/North Regatta</u></h2><h4>Sophomore Year - 2021</h4><h5>Seattle, WA</h5>';
+                  popup5_content += '<h5>This regatta is hosted by the University of Washington. I am pictured looking oh so joyous with my teammates.</h5>';
+                  popup5_content += '<img class="popupImage" alt="Five University of Oregon sailors sit stoicly with Lake Washington in the background" src="Images_ContentforPopups/Seattle2_AngryTeam.jpg" type="img/jpeg">' ;
+                  popup5_content += 'Image Source: My Own';
 
         
               var popup5 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup5_content);
     
               // Popup for marker 6  
-              var popup6_content = '<h2>Hoodoo Training Weekend</h2><br>';
-              popup6_content += '<img class="popupImage" alt="The University of Oregon alpine ski team poses for a group picture on the mountain" src="Images_ContentforPopups/BlackButte1_alpinePhoto.jpg" type="img/jpeg">' ;
-              popup6_content += 'Image Source: My Own';
+              var popup6_content = '<h2><u>Alpine Training Weekend</u></h2><h4>Sophomore Year - 2022</h4><h5>Black Butte, OR</h5>';
+                  popup6_content += '<h5>This was my first time skiing with the alpine team for our training weekend at Hoodoo Mountain.</h5>';
+                  popup6_content += '<img class="popupImage" alt="The University of Oregon alpine ski team poses for a group picture on the mountain" src="Images_ContentforPopups/BlackButte1_alpinePhoto.jpg" type="img/jpeg">' ;
+                  popup6_content += 'Image Source: My Own';
 
         
               var popup6 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup6_content);
     
               // Popup for marker 7
-              var popup7_content = '<h2>Brundage1</h2><br>';
-              popup7_content += '<img class="popupImage" alt="An action shot of Aidan GS skiing in a race with a red helmet" src="Images_ContentforPopups/Brundage1_GSaction.png" type="img/jpeg">' ;
-              popup7_content += 'Image Source: My Own';
+              var popup7_content = '<h2><u>Brundage Mountain</u></h2><h4>Sophomore Year - 2022</h4><h5>McCall, ID</h5>';
+                  popup7_content += '<h5>First giant slalom race of the season! I was a bit rusty but it was fun!</h5>';
+                  popup7_content += '<img class="popupImage" alt="An action shot of Aidan GS skiing in a race with a red helmet" src="Images_ContentforPopups/Brundage1_GSaction.png" type="img/jpeg">' ;
+                  popup7_content += 'Image Source: My Own';
 
         
               var popup7 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup7_content);
        
               // Popup for marker 8  
-              var popup8_content = '<h2>49 Degrees North</h2><br>';
-              popup8_content += '<img class="popupImage" alt="Three skiers pose for a picture at the bottom of a race course" src="Images_ContentforPopups/49DegreesN_MarScootMe.JPG" type="img/jpeg">' ;
-              popup8_content += 'Image Source: My Own';
-        
+              var popup8_content = '<h2><u>49 Degrees North</u></h2><h4>Sophomore Year - 2022</h4><h5>Chewelah, WA</h5>';
+                  popup8_content += '<h5>Me (on the left) with my friends Maris and Scout.</h5>';
+                  popup8_content += '<img class="popupImage" alt="Three skiers pose for a picture at the bottom of a race course" src="Images_ContentforPopups/49DegreesN_MarScootMe.JPG" type="img/jpeg">' ;
+                  popup8_content += 'Image Source: My Own';
+
               var popup8 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup8_content);
 
     
               // Popup for marker 9  
-              var popup9_content = '<h2>Lookout Pass</h2><br>';
-              popup9_content += '<img class="popupImage" alt="An action shot of Aidan slalom skiing in a race with a red helmet" src="Images_ContentforPopups/LookoutPass1_SlalomAction.JPG" type="img/jpeg">' ;
-              popup9_content += 'Image Source: My Own';
-        
+              var popup9_content = '<h2><u>Lookout Pass</u></h2><h4>Sophomore Year - 2022</h4><h5>Kellogg, ID</h5>';
+                  popup9_content += '<h5>This was the first slalom race of the season, which is my favorite!</h5>';
+                  popup9_content += '<img class="popupImage" alt="An action shot of Aidan slalom skiing in a race with a red helmet" src="Images_ContentforPopups/LookoutPass1_SlalomAction.JPG" type="img/jpeg">' ;
+                  popup9_content += 'Image Source: My Own';
+
               var popup9 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup9_content);
         
               // Popup for marker 10  THIS NEEDS TO BE FIXED AND THE VIDEO LINKED TO YOUTUBE
-              var popup10_content = '<h2>Red Lodge</h2><br>';
-              popup10_content += '<img class="popupImage" alt="Video of Aidan falling in a slalom race" src="Images_ContentforPopups/RedLodge_fallingvideo.mov" type="img/mov">' ;
-              popup10_content += 'Image Source: My Own';
+              var popup10_content = '<h2><u>Red Lodge Mountain</u></h2><h4>Sophomore Year - 2022</h4><h5>Red Lodge, MT</h5>';
+                  popup10_content += '<h5>This was our conference regionals competition that lasted a week and was a 16 hour drive!</h5>';
+                  popup10_content += '<img class="popupImage" alt="Video of Aidan falling in a slalom race" src="Images_ContentforPopups/RedLodge_fallingvideo.mov" type="img/mov">' ;
+                  popup10_content += 'Video Source: My Own';
 
         
               var popup10 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup10_content);
     
-              // Popup for marker 11  
-              var popup11_content = '<h2>Morro Bay</h2><br>';
-              popup11_content += '<img class="popupImage" alt="Five University of Oregon sailors take a group picture from the back of their minivan" src="Images_ContentforPopups/MorroBay_CarPhoto.jpg" type="img/jpeg">' ;
-              popup11_content += 'Image Source: My Own';
+              // Popup for marker 11  Morro Bay
+              var popup11_content = '<h2><u>Mustang Womens Regatta</u></h2><h4>Sophomore Year - 2022</h5><h4>Morro Bay, CA</h5>';
+                  popup11_content += '<h5>This regatta was hosted by Cal Poly Slo and was just for women. We were so incredibly late for this flight we only made it to the gate with three minutes to spare.</h5>';
+                  popup11_content += '<img class="popupImage" alt="Five University of Oregon sailors take a group picture from the back of their minivan" src="Images_ContentforPopups/MorroBay_CarPhoto.jpg" type="img/jpeg">' ;
+                  popup11_content += 'Image Source: My Own';
 
         
               var popup11 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup11_content);
     
               // Popup for marker 12  
-              var popup12_content = '<h2>Vallejo</h2><br>';
-              popup12_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/Vallejo_AveyCupcake.png" type="img/jpeg">' ;
-              popup12_content += 'Image Source: My Own';
+              var popup12_content = '<h2><u>North Designate Regatta</u></h2><h4>Sophomore Year - 2022</h4><h5>Vallejo, CA</h5>';
+                  popup12_content += '<h5>We drove down to Vallejo to race with Cal Maritime and celebrate Aveys 19th birthday!</h5>';
+                  popup12_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her birthday" src="Images_ContentforPopups/Vallejo_AveyCupcake.png" type="img/jpeg">' ;
+                  popup12_content += 'Image Source: My Own';
 
-        
+
               var popup12 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup12_content);
     
               // Popup for marker 13  
-              var popup13_content = '<h2>Orcas Island</h2><br>';
-              popup13_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/OrcasIsland1_KitTillieVan.png" type="img/jpeg">' ;
-              popup13_content += 'Image Source: My Own';
+              var popup13_content = '<h2><u>Orcas Island Team Race Regatta</u></h2><h4>Sophomore Year - 2022</h4><h5>Orcas Island, WA</h5>';
+                  popup13_content += '<h5>This is one of the coolest regattas we travel to because we have to take a ferry to Orcas Island from Anacortes, WA. But its team racing which is different than what we normally do, so we are really bad at it!</h5>';
+                  popup13_content += '<img class="popupImage" alt="Four women sit on the front of a van" src="Images_ContentforPopups/OrcasIsland1_KitTillieVan.png" type="img/jpeg">' ;
+                  popup13_content += 'Image Source: My Own';
 
         
               var popup13 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup13_content);
     
               // Popup for marker 14  
-              var popup14_content = '<h2>Rainer Cascade Locks</h2><br>';
-              popup14_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/RainierCascadeLocks1_TruckBed.jpg" type="img/jpeg">' ;
-              popup14_content += 'Image Source: My Own';
+              var popup14_content = '<h2><u>Rainer Cup</u></h2><h4>Sophomore Year - 2022</h4><h5>Cascade Locks, OR</h5>';
+                  popup14_content += '<h5>This regatta is fun but often cold because we camp in late April and its still rainy. But its in the Columbia River Gorge so its always windy!</h5>';
+                  popup14_content += '<img class="popupImage" alt="A group of college sailors pose for a picture in the back of a pickup truck" src="Images_ContentforPopups/RainierCascadeLocks1_TruckBed.jpg" type="img/jpeg">' ;
+                  popup14_content += 'Image Source: My Own';
 
         
               var popup14 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup14_content);
     
               // Popup for marker 15  
-              var popup15_content = '<h2>Gorge Cascade Locks</h2><br>';
-              popup15_content += '<img class="popupImage" alt="A UO sailor poses with a cupcake for her 19th birthday" src="Images_ContentforPopups/GorgeCascadeLocks1_PantsingTillie.jpeg" type="img/jpeg">' ;
-              popup15_content += 'Image Source: My Own';
+              var popup15_content = '<h2><u>Gorge Invite</u></h2><h4>Sophomore Year - 2022</h4><h5>Cascade Locks, OR</h5>';
+                  popup15_content += '<h5>Gorge Invite is the best regatta because all the team alumni come back and we sail in the Columbia River Gorge which is insanely windy.</h5>';
+                  popup15_content += '<img class="popupImage" alt="Three women goofing off on a pebble beach" src="Images_ContentforPopups/GorgeCascadeLocks1_PantsingTillie.jpeg" type="img/jpeg">' ;
+                  popup15_content += 'Image Source: My Own';
 
         
               var popup15 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup15_content);
     
               // Popup for marker 16  
-              var popup16_content = '<h2>Seattle Cascadia Cup Junior year, very smokey</h2><br>';
-              popup16_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/SeattleCascadia_Junior.png" type="img/jpeg">' ;
-              popup16_content += 'Image Source: My Own';
+              var popup16_content = '<h2><u>Cascadia Cup</u></h2><h4>Junior Year - 2022</h4><h5>Seattle, WA</h5>';
+                  popup16_content += '<h5>This Cascadia Cup was plagued by wildfire smoke that made it hard to breath.</h5>';
+                  popup16_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/SeattleCascadia_Junior.png" type="img/jpeg">' ;
+                  popup16_content += 'Image Source: My Own';
         
               var popup16 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup16_content);
     
               // Popup for marker 17 
-              var popup17_content = '<h2>Eugene Outlaw J</h2><br>';
-              popup17_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/EugeneOutlaw_Junior.jpg" type="img/jpeg">' ;
-              popup17_content += 'Image Source: My Own';
+              var popup17_content = '<h2><u>Outlaw Regatta</u></h2><h4>Junior Year - 2022</h4><h5>Eugene, OR</h5>';
+                  popup17_content += '<h5>This Outlaw went much more smoothly than the year before, but there was still smoke in the air.</h5>';
+                  popup17_content += '<img class="popupImage" alt="Two sailboats on a lake with trees in the background" src="Images_ContentforPopups/EugeneOutlaw_Junior.jpg" type="img/jpeg">' ;
+                  popup17_content += 'Image Source: My Own';
 
               var popup17 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup17_content);
     
               // Popup for marker 18  
-              var popup18_content = '<h2>Seattle North North J</h2><br>';
-              popup18_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/Seattle_NorthNorth_Junior.png" type="img/jpeg">' ;
-              popup18_content += 'Image Source: My Own';
-
+              var popup18_content = '<h2><u>North/North Regatta</u></h2><h4>Junior Year - 2022</h4><h5>Seattle, WA</h5>';
+                  popup18_content += '<h5>Me and Avey in our sailing gear.</h5>';
+                  popup18_content += '<img class="popupImage" alt="Two women in sailing gear pose in front of their sailboat" src="Images_ContentforPopups/Seattle_NorthNorth_Junior.png" type="img/jpeg">' ;
+                  popup18_content += 'Image Source: My Own';
         
               var popup18 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup18_content);
     
               // Popup for marker 19  
-              var popup19_content = '<h2>Bellingham Frosh Soph J</h2><br>';
-              popup19_content += '<img class="popupImage" alt="A bunch of sailboats on Lake Washington under the haze of wildfire smoke" src="Images_ContentforPopups/Bellingham_FroshSoph_Junior.png" type="img/jpeg">' ;
-              popup19_content += 'Image Source: My Own';
+              var popup19_content = '<h2><u>Frosh/Soph Regatta</u></h2><h4>Junior Year - 2022</h4><h5>Bellingham, WA</h5>';
+                  popup19_content += '<h5>We won this regatta! (We never do that)</h5>';
+                  popup19_content += '<img class="popupImage" alt="Six sailors pose on a dock with Lake Whatcom in the background" src="Images_ContentforPopups/Bellingham_FroshSoph_Junior.png" type="img/jpeg">' ;
+                  popup19_content += 'Image Source: My Own';
         
               var popup19 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup19_content);
     
               // Popup for marker 20  
-              var popup20_content = '<h2>Hoodoo Training Weekend J</h2><br>';
-              popup20_content += '<img class="popupImage" alt="Four college students smile for a selfie in the back of a car" src="Images_ContentforPopups/TrainingWeekendCarSelfie.jpg" type="img/jpeg">' ;
-              popup20_content += 'Image Source: My Own';
+              var popup20_content = '<h2><u>Alpine Training Weekend</u></h2><h4>Junior Year - 2023</h4><h5>Black Butte, OR</h5>';
+                  popup20_content += '<h5>I do not remember why we were crammed in the back of Maxs car but it looks fun!</h5>';
+                  popup20_content += '<img class="popupImage" alt="Four college students smile for a selfie in the back of a car" src="Images_ContentforPopups/TrainingWeekendCarSelfie.jpg" type="img/jpeg">' ;
+                  popup20_content += 'Image Source: My Own';
 
         
               var popup20 = new mapboxgl.Popup({ minWidth:'300px' })
@@ -410,197 +429,214 @@
     
 
               // Popup for marker 21  potential youtube cowboy drill video
-              var popup21_content = '<h2>Silver Mountain J Center of the Universe</h2><br>';
-              popup21_content += '<img class="popupImage" alt="Four skiers smile for a selfie in the back of a car" src="Images_ContentforPopups/WallaceCenterUniverse.JPG" type="img/jpeg">' ;
-              popup21_content += 'Image Source: My Own';
+              var popup21_content = '<h2><u>Silver Mountain</u></h2><h4>Junior Year - 2023</h4><h5>Wallace, ID</h5>';
+                  popup21_content += '<h5>Wallace, Idaho claims to be the Center of the Universe so this is us at the very center!</h5>';
+                  popup21_content += '<img class="popupImage" alt="Ski team poses in the street by a storm trained labeled Center of the Universe" src="Images_ContentforPopups/WallaceCenterUniverse.JPG" type="img/jpeg">' ;
+                  popup21_content += 'Image Source: My Own';
         
               var popup21 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup21_content);
     
-              // Popup for marker 22 
-              var popup22_content = '<h2>Anthony Lakes J</h2><br>';
-              popup22_content += '<img class="popupImage" alt="Action shot of Aidan racing slalom at Anthony Lakes" src="Images_ContentforPopups/AnthonyLakes_SlalomAction.jpg" type="img/jpeg">' ;
-              popup22_content += 'Image Source: My Own';
+              // Popup for marker 22 A Lakes
+              var popup22_content = '<h2><u>Anthony Lakes Mountain Resort</u></h2><h4>Junior Year - 2023</h4><h5>Anthony Lakes, OR</h5>';
+                  popup22_content += '<h5>This was a slalom race and I remember it being very, very cold.</h5>';
+                  popup22_content += '<img class="popupImage" alt="Action shot of Aidan racing slalom at Anthony Lakes" src="Images_ContentforPopups/AnthonyLakes_SlalomAction.jpg" type="img/jpeg">' ;
+                  popup22_content += 'Image Source: My Own';
         
               var popup22 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup22_content);
     
               // Popup for marker 23  
-              var popup23_content = '<h2>Brundage J</h2><br>';
-              popup23_content += '<img class="popupImage" alt="Four University of Oregon skiers pose for a picture on top of a mountain" src="Images_ContentforPopups/BrundageJunior.jpg" type="img/jpeg">' ;
-              popup23_content += 'Image Source: My Own';
+              var popup23_content = '<h2><u>Brundage Mountain</u></h2><h4>Junior Year - 2023</h4><h5>McCall, ID</h5>';
+                  popup23_content += '<h5>My parents and brother came out to this race from Minnesota and I crashed and got a massive bruise on my leg.</h5>';
+                  popup23_content += '<img class="popupImage" alt="Four University of Oregon skiers pose for a picture on top of a mountain" src="Images_ContentforPopups/BrundageJunior.jpg" type="img/jpeg">' ;
+                  popup23_content += 'Image Source: My Own';
         
               var popup23 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup23_content);
     
               // Popup for marker 24  
-              var popup24_content = '<h2>Snoqualmie Pass J</h2><br>';
-              popup24_content += '<div class="popupImages">';
-              popup24_content += '<img class="popupImage" alt="Five college ski racers lay in the snow in their colorful race suits" src="Images_ContentforPopups/Snoqualmie_SnowAngel.jpg" type="img/jpeg">';
-              popup24_content += '<img class="popupImage" alt="Ski hill with a snowy mountain in the background" src="Images_ContentforPopups/Snoqualmie_MountainPIC.jpg" type="img/jpeg">';
-              // Add more images here as needed
-              popup24_content += '</div>';
-              popup24_content += 'Image Source: My Own';
+              var popup24_content = '<h2><u>Snoqualmie Pass</u></h2><h4>Junior Year - 2023</h4><h5>Snoqualmie, WA</h5>';
+                  popup24_content += '<h5>This race was nice because it was sunny but then the snow got all mushy so it was less nice.</h5>';
+                  popup24_content += '<div class="popupImages">';
+                  popup24_content += '<img class="popupImage" alt="Five college ski racers lay in the snow in their colorful race suits" src="Images_ContentforPopups/Snoqualmie_SnowAngel.jpg" type="img/jpeg">';
+                  popup24_content += '<img class="popupImage" alt="Ski hill with a snowy mountain in the background" src="Images_ContentforPopups/Snoqualmie_MountainPIC.jpg" type="img/jpeg">';
+                  popup24_content += '</div>';
+                  popup24_content += 'Image Source: My Own';
 
               var popup24 = new mapboxgl.Popup({ minWidth:'300px' }).setHTML(popup24_content);
 
 
               // Popup for marker 25  
-              var popup25_content = '<h2>Bogus Basin Boise J</h2><br>';
-              popup25_content += '<img class="popupImage" alt="Two girls embrace on top of the ski hill" src="Images_ContentforPopups/BogusBasin_MeMar.jpg" type="img/jpeg">' ;
-              popup25_content += 'Image Source: My Own';
+              var popup25_content = '<h2><u>Bogus Basin Regionals</u></h2><h4>Junior Year - 2023</h4><h5>Boise, ID</h5>';
+                  popup25_content += '<h5>Our conference regionals was held at Bogus Basin and our womens team qualified for nationals! Little did we know what a hellish excursion that would be...</h5>';
+                  popup25_content += '<img class="popupImage" alt="Two girls embrace on top of the ski hill" src="Images_ContentforPopups/BogusBasin_MeMar.jpg" type="img/jpeg">' ;
+                  popup25_content += 'Image Source: My Own';
         
               var popup25 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup25_content);
     
               // Popup for marker 26  
-              var popup26_content = '<h2>Mammoth Lakes J</h2><br>';
-              popup26_content += '<div class="popupImages">';
-              popup26_content += '<img class="popupImage" alt="One woman stands against a giant wall of snow that is over fifteen feet tall" src="Images_ContentforPopups/MammothSnowHeight.jpg" type="img/jpeg">';
-              popup26_content += '<img class="popupImage" alt="Six skiers from the University of Oregon womens team sit on top of a white van" src="Images_ContentforPopups/Mammoth_NattysVanPic.jpeg" type="img/jpeg">';
-              // Add more images here as needed
-              popup26_content += '</div>';
-              popup26_content += 'Image Source: My Own';
+              var popup26_content = '<h2><u>Mammoth Mountain Nationals</u></h2><h4>Junior Year - 2023</h4><h5>Mammoth Lakes, CA</h5>';
+                  popup26_content += '<h5>Nationals was a wild trip because it lasted a week, there was so much snow almost all the event we canceled and we had to drive through a flood and a rockslide to get back to Eugene. Very dramatic trip but fun at times!</h5>';
+                  popup26_content += '<div class="popupImages">';
+                  popup26_content += '<img class="popupImage" alt="One woman stands against a giant wall of snow that is over fifteen feet tall" src="Images_ContentforPopups/MammothSnowHeight.jpg" type="img/jpeg">';
+                  popup26_content += '<img class="popupImage" alt="Six skiers from the University of Oregon womens team sit on top of a white van" src="Images_ContentforPopups/Mammoth_NattysVanPic.jpeg" type="img/jpeg">';
+                  popup26_content += '</div>';
+                  popup26_content += 'Image Source: My Own';
         
               var popup26 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup26_content);
     
               // Popup for marker 27  
-              var popup27_content = '<h2>Eugene Duckling</h2><br>';
-              popup27_content += '<img class="popupImage" alt="Green grass in the foreground and sailboats in the background at the lake" src="Images_ContentforPopups/Eugene_DucklingJunior.JPG" type="img/jpeg">' ;
-              popup27_content += 'Image Source: My Own';
-        
+              var popup27_content = '<h2><u>Duckling Regatta</u></h2><h4>Junior Year - 2023</h4><h5>Eugene, OR</h5>';
+                  popup27_content += '<h5>This is a beginner regatta that we host so that sailors can gain more confidence in their skills.</h5>';
+                  popup27_content += '<img class="popupImage" alt="Green grass in the foreground and sailboats in the background at the lake" src="Images_ContentforPopups/Eugene_DucklingJunior.JPG" type="img/jpeg">' ;
+                  popup27_content += 'Image Source: My Own';
+
               var popup27 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup27_content);
     
               // Popup for marker 28  
-              var popup28_content = '<h2>Cascade Locks Rainier J</h2><br>';
-              popup28_content += '<div class="popupImages">';
-              popup28_content += '<img class="popupImage" alt="Two women stand next to each other in life vests" src="Images_ContentforPopups/Rainer_MeAvey_Junior.jpg" type="img/jpeg">';
-              popup28_content += '<img class="popupImage" alt="Action shot of a sailboat in windy conditions" src="Images_ContentforPopups/Rainer_MeKateEpic_Junior.jpg" type="img/jpeg">';
-              // Add more images here as needed
-              popup28_content += '</div>';
-              popup28_content += 'Image Source: My Own';
-        
+              var popup28_content = '<h2><u>Rainer Cup</u></h2><h4>Junior Year - 2023</h4><h5>Cascade Locks, OR</h5>';
+                  popup28_content += '<h5>Another wildly windy regatta in the Columbia River Gorge!</h5>';
+                  popup28_content += '<div class="popupImages">';
+                  popup28_content += '<img class="popupImage" alt="Two women stand next to each other in life vests" src="Images_ContentforPopups/Rainer_MeAvey_Junior.jpg" type="img/jpeg">';
+                  popup28_content += '<img class="popupImage" alt="Action shot of a sailboat in windy conditions" src="Images_ContentforPopups/Rainer_MeKateEpic_Junior.jpg" type="img/jpeg">';
+                  popup28_content += '</div>';
+                  popup28_content += 'Image Source: My Own';
+
               var popup28 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup28_content);
     
               // Popup for marker 29  
-              var popup29_content = '<h2>Orcas Island J</h2><br>';
-              popup29_content += '<div class="popupImages">';
-              popup29_content += '<img class="popupImage" alt="Eight sailboats with colorful sails in a bay" src="Images_ContentforPopups/OrcasIsland_Junior.JPG" type="img/jpeg">';
-              popup29_content += '<img class="popupImage" alt="Two people stand beside water with clouds and a mountain behind them" src="Images_ContentforPopups/Orcas_KishMe.jpeg" type="img/jpeg">';
-              // Add more images here as needed
-              popup29_content += '</div>';
-              popup29_content += 'Image Source: My Own';
+              var popup29_content = '<h2><u>Orcas Island Cup</u></h2><h4>Junior Year - 2023</h4><h5>Orcas Island, WA</h5>';
+                  popup29_content += '<h5>We explored the energy vortex at the center of Orcas Island. Legend has it all the worlds energy comes out of it.</h5>';
+                  popup29_content += '<div class="popupImages">';
+                  popup29_content += '<img class="popupImage" alt="Eight sailboats with colorful sails in a bay" src="Images_ContentforPopups/OrcasIsland_Junior.JPG" type="img/jpeg">';
+                  popup29_content += '<img class="popupImage" alt="Two people stand beside water with clouds and a mountain behind them" src="Images_ContentforPopups/Orcas_KishMe.jpeg" type="img/jpeg">';
+                  popup29_content += '</div>';
+                  popup29_content += 'Image Source: My Own';
         
               var popup29 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup29_content);
     
               // Popup for marker 30 
-              var popup30_content = '<h2>Gorge Invite Cascade Locks Junior</h2><br>';
-              popup30_content += '<img class="popupImage" alt="A group of college students sitting and standing around a picnic table while camping" src="Images_ContentforPopups/Gorge_Junior.jpg" type="img/jpeg">' ;
-              popup30_content += 'Image Source: My Own';
+              var popup30_content = '<h2><u>Gorge Invite</u></h2><h4>Junior Year - 2023</h4><h5>Cascade Locks, OR</h5>';
+                  popup30_content += '<h5>More camping in the Gorge! It rained a lot.</h5>';
+                  popup30_content += '<img class="popupImage" alt="A group of college students sitting and standing around a picnic table while camping" src="Images_ContentforPopups/Gorge_Junior.jpg" type="img/jpeg">' ;
+                  popup30_content += 'Image Source: My Own';
         
               var popup30 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup30_content);
     
               // Popup for marker 31 Start Senior Year  
-              var popup31_content = '<h2>Seattle Cascadia S</h2><br>';
-              popup31_content += '<img class="popupImage" alt="College sailors rig their boat" src="Images_ContentforPopups/Cascadia_Senior.JPG" type="img/jpeg">' ;
-              popup31_content += 'Image Source: My Own';
+              var popup31_content = '<h2><u>Cascadia Cup</u></h2><h4>Senior Year - 2023</h4><h5>Seattle, WA</h5>';
+                  popup31_content += '<h5>There was a crazy lightning storm on the first day and we had to postpone the races.</h5>';
+                  popup31_content += '<img class="popupImage" alt="College sailors rig their boat" src="Images_ContentforPopups/Cascadia_Senior.JPG" type="img/jpeg">' ;
+                  popup31_content += 'Image Source: My Own';
         
               var popup31 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup31_content);
     
 
               // Popup for marker 32 
-              var popup32_content = '<h2>Eugene Outlaw S</h2><br>';
-              popup32_content += '<img class="popupImage" alt="Two women in sailing gear laugh on a wooden deck" src="Images_ContentforPopups/EugeneOutlaw_Senior.JPG" type="img/jpeg">' ;
-              popup32_content += 'Image Source: My Own';
+              var popup32_content = '<h2><u>Outlaw Regatta</u></h2><h4>Senior Year - 2023</h4><h5>Eugene, OR</h5>';
+                  popup32_content += '<h5>I hosted 20 of the Western Washington team in my apartment and it turned it into a clown car-esque situation.</h5>';
+                  popup32_content += '<img class="popupImage" alt="Two women in sailing gear laugh on a wooden deck" src="Images_ContentforPopups/EugeneOutlaw_Senior.JPG" type="img/jpeg">' ;
+                  popup32_content += 'Image Source: My Own';
         
               var popup32 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup32_content);
     
               // Popup for marker 33  
-              var popup33_content = '<h2>Seattle North North S</h2><br>';
-              popup33_content += '<div class="popupImages">';
-              popup33_content += '<img class="popupImage" alt="A sailboat going downwind" src="Images_ContentforPopups/NorthNorth_Senior.JPG" type="img/jpeg">';
-              popup33_content += '<img class="popupImage" alt="Aidan stands in sailing gear in the center of the image with other people nearby" src="Images_ContentforPopups/NorthNorth_SeniorME.JPG" type="img/jpeg">';
-              popup33_content += '</div>';
-              popup33_content += 'Image Source: My Own';
-        
+              var popup33_content = '<h2><u>North/North Regatta</u></h2><h4>Senior Year - 2023</h4><h5>Seattle, WA</h5>';
+                  popup33_content += '<h5>It was fun probably! I cannot remember all of these events.</h5>';
+                  popup33_content += '<div class="popupImages">';
+                  popup33_content += '<img class="popupImage" alt="A sailboat going downwind" src="Images_ContentforPopups/NorthNorth_Senior.JPG" type="img/jpeg">';
+                  popup33_content += '<img class="popupImage" alt="Aidan stands in sailing gear in the center of the image with other people nearby" src="Images_ContentforPopups/NorthNorth_SeniorME.JPG" type="img/jpeg">';
+                  popup33_content += '</div>';
+                  popup33_content += 'Image Source: My Own';
+
               var popup33 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup33_content);
     
               // Popup for marker 34  
-              var popup34_content = '<h2>Bellingham Frosh Soph S</h2><br>';
-              popup34_content += '<img class="popupImage" alt="Group photo of the University of Oregon sailing team on a dock with Lake Whatcom in the background" src="Images_ContentforPopups/Bellingham_Senior.JPG" type="img/jpeg">' ;
-              popup34_content += '<img class="popupImage" alt="Four women sit at the end of a dock with their backs turned on a cloudy day with small mountains in the background" src="Images_ContentforPopups/BellingHAM_Dock_S.JPG" type="img/jpeg">';
-              popup34_content += '</div>';
-              popup34_content += 'Image Source: My Own';
+              var popup34_content = '<h2><u>Frosh/Soph Regatta</u></h2><h4>Senior Year - 2023</h4><h5>Bellingham, WA</h5>';
+                  popup34_content += '<h5>This one I remember very well because I was skippering and I participated in a six boat pileup that was only partially my fault.</h5>';
+                  popup34_content += '<img class="popupImage" alt="Group photo of the University of Oregon sailing team on a dock with Lake Whatcom in the background" src="Images_ContentforPopups/Bellingham_Senior.JPG" type="img/jpeg">' ;
+                  popup34_content += '<img class="popupImage" alt="Four women sit at the end of a dock with their backs turned on a cloudy day with small mountains in the background" src="Images_ContentforPopups/BellingHAM_Dock_S.JPG" type="img/jpeg">';
+                  popup34_content += '</div>';
+                  popup34_content += 'Image Source: My Own';
         
               var popup34 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup34_content);
     
               // Popup for marker 35  
-              var popup35_content = '<h2>LA Rosebowl S</h2><br>';
-              popup35_content += '<img class="popupImage" alt="A sandy beach with the sun high in the sky over the ocean with a few boats in the background" src="Images_ContentforPopups/Rosebowl.JPG" type="img/jpeg">' ;
-              popup35_content += 'Image Source: My Own';
+              var popup35_content = '<h2><u>Rosebowl Regatta</u></h2><h4>Senior Year - 2024</h4><h5>Los Angeles, CA</h5>';
+                  popup35_content += '<h5>This was a long drive down to LA but sailing on the ocean is always an interesting experience.</h5>';
+                  popup35_content += '<img class="popupImage" alt="A sandy beach with the sun high in the sky over the ocean with a few boats in the background" src="Images_ContentforPopups/Rosebowl.JPG" type="img/jpeg">' ;
+                  popup35_content += 'Image Source: My Own';
         
               var popup35 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup35_content);
 
               // Popup for marker 36  Brundage_Senior.JPG
-              var popup36_content = '<h2>Brundage S</h2><br>';
-              popup36_content += '<img class="popupImage" alt="Ski hill with skiers setting up a giant slalom course with a foggy background in the valley below" src="Images_ContentforPopups/Brundage_Senior.JPG" type="img/jpeg">' ;
-              popup36_content += 'Image Source: My Own';
+              var popup36_content = '<h2><u>Brundage Mountain</u></h2><h4>Senior Year - 2024</h4><h5>McCall, ID</h5>';
+                  popup36_content += '<h5>I felt OLD at this race because apparently you cannot just jump back into intensive sports with no preparation!</h5>';
+                  popup36_content += '<img class="popupImage" alt="Ski hill with skiers setting up a giant slalom course with a foggy background in the valley below" src="Images_ContentforPopups/Brundage_Senior.JPG" type="img/jpeg">' ;
+                  popup36_content += 'Image Source: My Own';
         
               var popup36 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup36_content);
     
               // Popup for marker 37  LookoutPass_DraggingSophia.JPG
-              var popup37_content = '<h2>Lookout Pass S</h2><br>';
-              popup37_content += '<img class="popupImage" alt="Aidan leans on her slalom poles on the ski hill while its snowing" src="Images_ContentforPopups/LookoutPass_Senior_MeSlalom.jpg" type="img/jpeg">' ;
-              popup37_content += '<img class="popupImage" alt="Aidan stands in a grocery store with a plastic duck both wearing sunglasses" src="Images_ContentforPopups/LookoutPass_DuckMeSunglasses.jpg" type="img/jpeg">';
-              popup37_content += '</div>';
-              popup37_content += 'Image Source: My Own';
-        
+              var popup37_content = '<h2><u>Lookout Pass</u></h2><h4>Senior Year - 2024</h4><h5>Kellogg, ID</h5>';
+                  popup37_content += '<h5>It snowed a lot this trip which made it hard to see and I again felt OLD.</h5>';
+                  popup37_content += '<img class="popupImage" alt="Aidan leans on her slalom poles on the ski hill while its snowing" src="Images_ContentforPopups/LookoutPass_Senior_MeSlalom.jpg" type="img/jpeg">' ;
+                  popup37_content += '<img class="popupImage" alt="Aidan stands in a grocery store with a plastic duck both wearing sunglasses" src="Images_ContentforPopups/LookoutPass_DuckMeSunglasses.jpg" type="img/jpeg">';
+                  popup37_content += '</div>';
+                  popup37_content += 'Image Source: My Own';
+
               var popup37 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup37_content);
     
               // Popup for marker 38 
-              var popup38_content = '<h2>Snoqualmie S</h2><br>';
-              popup38_content += '<img class="popupImage" alt="Four female skiers pose for a picture on the ski hill with a chairlift in the left background" src="Images_ContentforPopups/Snoqualmie_SeniorGals.jpg" type="img/jpeg">' ;
-              popup38_content += '<img class="popupImage" alt="Young woman smiles with stickers on her face and a plastic princess crown taped to her ski helment" src="Images_ContentforPopups/SnoqualmiePrincess.jpg" type="img/jpeg">';
-              popup38_content += '</div>';
-              popup38_content += 'Image Source: My Own';
+              var popup38_content = '<h2><u>Snoqualmie Pass</u></h2><h4>Senior Year - 2024</h4><h5>Snoqualmie, WA</h5>';
+                  popup38_content += '<h5>This was my last ski race in college! It was a great time and we popped champagne at the end which I am not very good at.</h5>';
+                  popup38_content += '<img class="popupImage" alt="Four female skiers pose for a picture on the ski hill with a chairlift in the left background" src="Images_ContentforPopups/Snoqualmie_SeniorGals.jpg" type="img/jpeg">' ;
+                  popup38_content += '<img class="popupImage" alt="Young woman smiles with stickers on her face and a plastic princess crown taped to her ski helment" src="Images_ContentforPopups/SnoqualmiePrincess.jpg" type="img/jpeg">';
+                  popup38_content += '</div>';
+                  popup38_content += 'Image Source: My Own';
         
               var popup38 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup38_content);
     
               // Popup for marker 39  
-              var popup39_content = '<h2>Eugene Duckling S</h2><br>';
-              popup39_content += '<img class="popupImage" alt="Two women in sailing gear pose for a picture on a dock with water in the background" src="Images_ContentforPopups/Eugene_Duckling_MeAveySenior.jpg" type="img/jpeg">' ;
-              popup39_content += 'Image Source: My Own';
+              var popup39_content = '<h2><u>Duckling Regatta</u></h2><h4>Senior Year - 2024</h4><h5>Eugene, OR</h5>';
+                  popup39_content += '<h5>I skippered at this regatta too and it was very windy but we did just fine!</h5>';
+                  popup39_content += '<img class="popupImage" alt="Two women in sailing gear pose for a picture on a dock with water in the background" src="Images_ContentforPopups/Eugene_Duckling_MeAveySenior.jpg" type="img/jpeg">' ;
+                  popup39_content += 'Image Source: My Own';
         
               var popup39 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup39_content);
     
               // Popup for marker 40  
-              var popup40_content = '<h2>Eugene Rainier, weird S</h2><br>';
-              popup40_content += '<img class="popupImage" alt="A fleet of boats with colorful sails sailing on a sunny day" src="Images_ContentforPopups/Rainer_EYC_Senior.JPG" type="img/jpeg">' ;
-              popup40_content += 'Image Source: My Own';
-        
+              var popup40_content = '<h2><u>Rainer Cup</u></h2><h4>Senior Year - 2024</h4><h5>Eugene, OR</h5>';
+                  popup40_content += '<h5>This one was weird because its supposed to be held in the Gorge but we could not have it there so we hosted instead. Odd.</h5>';
+                  popup40_content += '<img class="popupImage" alt="A fleet of boats with colorful sails sailing on a sunny day" src="Images_ContentforPopups/Rainer_EYC_Senior.JPG" type="img/jpeg">' ;
+                  popup40_content += 'Image Source: My Own';
+
               var popup40 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup40_content);
     
               // Popup for marker 41  
-              var popup41_content = '<h2>Gorge Invite Cascade Locks S</h2><br>';
-              popup41_content += '<img class="popupImage" alt="Northern Lights over the Columbia River Gorge with the moon in the background left" src="Images_ContentforPopups/NorthernLights_GorgeSenior.JPG" type="img/jpeg">' ;
-              popup41_content += '<img class="popupImage" alt="Five sailors pose for a picture with a river in the background" src="Images_ContentforPopups/Alumni_GorgeSenior.JPG" type="img/jpeg">';
-              popup41_content += '</div>';
-              popup41_content += 'Image Source: My Own';
+              var popup41_content = '<h2><u>Gorge Invite</u></h2><h4>Senior Year - 2024</h4><h5>Cascade Locks, OR</h5>';
+                  popup41_content += '<h5>This was my last ever college regatta! All my friends that had graduated came back as alumni and we saw the Northern Lights, so it was an amazing trip all around.</h5>';
+                  popup41_content += '<img class="popupImage" alt="Northern Lights over the Columbia River Gorge with the moon in the background left" src="Images_ContentforPopups/NorthernLights_GorgeSenior.JPG" type="img/jpeg">' ;
+                  popup41_content += '<img class="popupImage" alt="Five sailors pose for a picture with a river in the background" src="Images_ContentforPopups/Alumni_GorgeSenior.JPG" type="img/jpeg">';
+                  popup41_content += '</div>';
+                  popup41_content += 'Image Source: My Own';
         
               var popup41 = new mapboxgl.Popup({ minWidth:'300px' })
               .setHTML(popup41_content);
@@ -608,190 +644,253 @@
      
     /***  END POPUPS  ***/  
 
-        
      /***  MARKERS  ***/
             // markers go here
            /***  MARKERS  ***/
-    // Marker 1 - Annapolis
-     var marker1 = new mapboxgl.Marker({color:'#409E91'})
-        .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
-	    .setPopup(popup1) 
-        .addTo(map);
+    // Function to create a marker element with a number inside
+function createMarkerElement(iconClass, color) {
+    var el = document.createElement('div');
+    el.className = 'marker';
+    el.style.background = color;
+    el.style.width = '30px';
+    el.style.height = '30px';
+    el.style.borderRadius = '50%';
+    el.style.color = 'white';
+    el.style.fontSize = '18px';
+    el.style.fontWeight = 'bold';
+    el.style.textAlign = 'center';
+    el.style.lineHeight = '30px';
+    // Set the inner HTML to the skier icon
+    el.innerHTML = '<i class="' + iconClass + '"></i>';
+    return el;
+}
+
+// Marker 1 - Annapolis
+var marker1 = new mapboxgl.Marker({
+    color: '#859805',
+    // Add skier icon inside the marker
+    element: createMarkerElement('fas fa-skier', '#859805') // Use Font Awesome skier icon class
+})
+.setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
+.setPopup(popup1) 
+.addTo(map);
 
         
     // Marker 2 - Seattle 
-    var marker2 = new mapboxgl.Marker({color:'MediumBlue'})
-       .setLngLat([-122.25603955653592, 47.68810868087924]) // Seattle1 
+    var marker2 = new mapboxgl.Marker({
+        color: '#19B298',
+        element: createMarkerElement('1', '#19B298')
+        })
+       .setLngLat([-122.2521300855248, 47.690308283518036]) // Seattle1 
        .setPopup(popup2) 
        .addTo(map);
     
     // Marker 3 - Eugene1
-    var marker3 = new mapboxgl.Marker({color:'MediumBlue'})
-      .setLngLat([-123.3134840090948, 44.120480118319755]) // Eugene1
+    var marker3 = new mapboxgl.Marker({
+        color: '#19B298',
+        element: createMarkerElement('1', '#19B298')
+        })
+      .setLngLat([-123.29440298624444, 44.10970633784268]) // Eugene1
       .setPopup(popup3)
       .addTo(map);
 
         
     // Marker 4 - Bellingham
-    var marker4 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker4 = new mapboxgl.Marker({
+        color: '#19B298',
+        element: createMarkerElement('1', '#19B298')
+        })
       .setLngLat([-122.33659615985495, 48.73715947872702]) // Bellingham
       .setPopup(popup4)
       .addTo(map);
         
     // Marker 5 - Seattle2
-    var marker5 = new mapboxgl.Marker({color:'MediumBlue'})
-      .setLngLat([-122.23225452269152, 47.67363684011854]) // Seattle2
+    var marker5 = new mapboxgl.Marker({
+        color: '#19B298',
+        element: createMarkerElement('2', '#19B298')
+        })
+      .setLngLat([-122.25049141614444, 47.6947202970247]) // Seattle2
       .setPopup(popup5)
       .addTo(map);
     
     // Marker 6 - BlackButte1 Hoodoo
-    var marker6 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker6 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-121.86084256143931, 44.40819467595015]) // BlackButte1 Hoodoo
       .setPopup(popup6)
       .addTo(map);
     
     // Marker 7 - Brundage1
-    var marker7 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker7 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-116.15077801023584, 45.00867865199474]) // Brundage1
       .setPopup(popup7)
       .addTo(map);
     
     // Marker 8 - 49DegreesN
-    var marker8 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker8 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-117.56292683095484, 48.30123991094011]) // 49DegreesN
       .setPopup(popup8)
       .addTo(map);
     
     // Marker 9 - Lookout Pass
-    var marker9 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker9 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-115.69710172837202, 47.45620565110117]) // LookoutPass
       .setPopup(popup9)
       .addTo(map);
     
     // Marker 10 - Red Lodge
-    var marker10 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker10 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-109.33639544456858, 45.19093661006774]) // Red Lodge
       .setPopup(popup10)
       .addTo(map);
     
     // Marker 11 - Morro Bay
-    var marker11 = new mapboxgl.Marker({color:'MediumBlue'})
+     var marker11 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-120.85021533043592, 35.35778621065163]) // Morro Bay
       .setPopup(popup11)
       .addTo(map);
     
     // Marker 12 - Vallejo
-    var marker12 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker12 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-122.23064810989075, 38.0657940051278]) // Vallejo
       .setPopup(popup12)
       .addTo(map);
     
     // Marker 13 - Orcas Island 1
-    var marker13 = new mapboxgl.Marker({color:'MediumBlue'})
+    var marker13 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
       .setLngLat([-122.98107825834987, 48.633046189814266]) // Orcas Island 1
       .setPopup(popup13)
       .addTo(map);
     
     // Marker 14 - Rainer Cascade Locks
-    var marker14 = new mapboxgl.Marker({color:'MediumBlue'})
-      .setLngLat([-121.88708757595536, 45.67755921345878]) // Rainer Cascade Locks
+    var marker14 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('1', '#859805')
+        })
+      .setLngLat([-121.89094995672524, 45.67761918294506]) // Rainer Cascade Locks
       .setPopup(popup14)
       .addTo(map);
     
     // Marker 15 - Gorge Cascade Locks - End of Sophomore Year
-    var marker15 = new mapboxgl.Marker({color:'MediumBlue'})
-      .setLngLat([-121.89094995672524, 45.67761918294506]) // Gorge Cascade Locks
+    var marker15 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('2', '#859805')
+        })
+      .setLngLat([-121.88708757595536, 45.67755921345878]) // Gorge Cascade Locks
       .setPopup(popup15)
       .addTo(map);
     
     // Marker 16 - Seattle3 - Beginning of Junior Year
-     var marker16 = new mapboxgl.Marker({color:'Teal'})
+     var marker16 = new mapboxgl.Marker({color:'#237AA3'})
         .setLngLat([-122.22924296818425, 47.683383764335055]) // Seattle3
 	    .setPopup(popup16) 
         .addTo(map);
 
         
     // Marker 17 - Eugene2
-    var marker17 = new mapboxgl.Marker({color:'Teal'})
-       .setLngLat([-123.32153699714587, 44.10847639101417]) // Eugene2
+    var marker17 = new mapboxgl.Marker({color:'#237AA3'})
+       .setLngLat([-123.31400051453193, 44.10516234130953]) // Eugene2
        .setPopup(popup17) 
        .addTo(map);
     
     // Marker 18 - Seattle4
-    var marker18 = new mapboxgl.Marker({color:'Teal'})
+    var marker18 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-122.26484793097914, 47.6889464595122]) // Seattle 4
       .setPopup(popup18)
       .addTo(map);
 
         
     // Marker 19 - Bellingham2
-    var marker19 = new mapboxgl.Marker({color:'Teal'})
+    var marker19 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-122.34072066291996, 48.72936929241587]) // Bellingham2
       .setPopup(popup19)
       .addTo(map);
         
     // Marker 20 - Black Butte Ranch2
-    var marker20 = new mapboxgl.Marker({color:'Teal'})
+    var marker20 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-121.87143725994065, 44.408758835876476]) // Black Butte Ranch2
       .setPopup(popup20)
       .addTo(map);
     
     // Marker 21 - Silver Mountain
-    var marker21 = new mapboxgl.Marker({color:'Teal'})
+    var marker21 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-116.11920867287779, 47.49915960669005]) // Silver Mountain
       .setPopup(popup21)
       .addTo(map);
     
     // Marker 22 - Anthony Lakes
-    var marker22 = new mapboxgl.Marker({color:'Teal'})
+    var marker22 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-118.23393243108417, 44.96268409010189]) // Anthony Lakes
       .setPopup(popup22)
       .addTo(map);
     
     // Marker 23 - Brundage
-    var marker23 = new mapboxgl.Marker({color:'Teal'})
+    var marker23 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-116.15441211476177, 45.00552885353043]) // Brundage
       .setPopup(popup23)
       .addTo(map);
     
     // Marker 24 - Snoqualmie Pass1
-    var marker24 = new mapboxgl.Marker({color:'Teal'})
+    var marker24 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-121.41645477516795, 47.42504270952052]) // Snoqualmie Pass1
       .setPopup(popup24)
       .addTo(map);
     
     // Marker 25 - Boise, Bogus Basin ID
-    var marker25 = new mapboxgl.Marker({color:'Teal'})
+    var marker25 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-116.10278849694119, 43.76476872727828]) // Boise, Bogus Basin ID
       .setPopup(popup25)
       .addTo(map);
     
     // Marker 26 - Mammoth Lakes
-    var marker26 = new mapboxgl.Marker({color:'Teal'})
+    var marker26 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-119.02619079458566, 37.63967330319432]) // Mammoth Lakes
       .setPopup(popup26)
       .addTo(map);
     
     // Marker 27 - Eugene Duckling Regatta
-    var marker27 = new mapboxgl.Marker({color:'Teal'})
-      .setLngLat([-123.31318551947251, 44.11599520722522]) // Eugene Duckling Regatta
+    var marker27 = new mapboxgl.Marker({color:'#237AA3'})
+      .setLngLat([-123.31593985326869, 44.0984922944301]) // Eugene Duckling Regatta
       .setPopup(popup27)
       .addTo(map);
     
     // Marker 28 - Cascade Locks Rainer
-    var marker28 = new mapboxgl.Marker({color:'Teal'})
+    var marker28 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-121.89721559664079, 45.673091305977955]) // Cascade Locks Rainer
       .setPopup(popup28)
       .addTo(map);
     
     // Marker 29 - Orcas Island 2
-    var marker29 = new mapboxgl.Marker({color:'Teal'})
+    var marker29 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-122.95761000883107, 48.63157719627219]) // Orcas Island 2
       .setPopup(popup29)
       .addTo(map);
     
     // Marker 30 - Gorge Invite Cascade Locks- End of Junior Year
-    var marker30 = new mapboxgl.Marker({color:'Orange'})
+    var marker30 = new mapboxgl.Marker({color:'#237AA3'})
       .setLngLat([-121.89148638972443, 45.672319206030885]) // Gorge Invite Cascade Locks
       .setPopup(popup30)
       .addTo(map);
@@ -869,7 +968,7 @@
         map.setMinZoom(4.5); // Set your minimum zoom level here
     
     // Set maximum zoom level
-        map.setMaxZoom(12); // Set your maximum zoom level here
+        map.setMaxZoom(14); // Set your maximum zoom level here
     
     // Add zoom in and zoom out functionality to buttons
     document.getElementById('zoom-in').addEventListener('click', function () {
