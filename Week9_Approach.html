@@ -242,11 +242,15 @@
     ];
     
     const map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/afc2002/clw9nnxar002p01pp2z4e2t2e',
-    center: [-117.05329968621874, 41.98243038750433], // Centered on Eugene
-    zoom: 5
-});
+        container: 'map',
+        style: 'mapbox://styles/afc2002/clw9nnxar002p01pp2z4e2t2e',
+        center: [-115.12348521471323, 41.32151231125257], // Centered on in the middle of the U.S.
+        zoom: 4.4,
+        maxBounds: [
+            [-125.60410876169229, 22.913234734121943], // Southwest coordinates of the United States
+            [-57.82328728111909, 53.265078779474024]   // Northeast coordinates of the United States
+        ]
+        });
 
 
     let currentIndex = 0;
@@ -361,8 +365,8 @@
               // Popup for marker 10  THIS NEEDS TO BE FIXED AND THE VIDEO LINKED TO YOUTUBE
               var popup10_content = '<h2><u>Red Lodge Mountain</u></h2><h4>Sophomore Year - 2022</h4><h5>Red Lodge, MT</h5>';
                   popup10_content += '<h5>This was our conference regionals competition that lasted a week and was a 16 hour drive!</h5>';
-                  popup10_content += '<img class="popupImage" alt="Video of Aidan falling in a slalom race" src="Images_ContentforPopups/RedLodge_fallingvideo.mov" type="img/mov">' ;
-                  popup10_content += 'Video Source: My Own';
+                  popup10_content += '<img class="popupImage" alt="Group photo on the mountain of the UO ski team" src="Images_ContentforPopups/RedLodgeGroup.jpg" type="img/jpg">' ;
+                  popup10_content += 'Image Source: My Own';
 
         
               var popup10 = new mapboxgl.Popup({ minWidth:'300px' })
@@ -1058,7 +1062,7 @@ var marker1 = new mapboxgl.Marker({
         /***  END MARKERS  ***/
     
     // Set minimum zoom level
-        map.setMinZoom(4.3); // Set your minimum zoom level here
+        map.setMinZoom(3.9); // Set your minimum zoom level here
     
     // Set maximum zoom level
         map.setMaxZoom(14); // Set your maximum zoom level here
