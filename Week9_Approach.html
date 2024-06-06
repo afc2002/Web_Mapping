@@ -112,6 +112,34 @@
             margin-bottom: 5px; /* Add some margin between buttons */
         }
         
+          .legend-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #F8F8F8;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1; /* Ensure the legend is above the map */
+        }
+        .legend-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-icon {
+            margin-right: 5px;
+            font-size: 20px;
+        }
+        .legend-label {
+            font-size: 14px;
+        }
+        
     </style>
 </head>
 <body>
@@ -128,11 +156,10 @@
         <button class="button" onclick="flyToNextLocation(3)">Senior Year</button>
     </div>
     <div style="padding: 20px;">
-        <h4>A = Alpine Ski</h4>
-        <h4>S = Sailing</h4>
         <h3><u>What does this map show?</u></h3>
         <h6> In college I spent four years on the alpine ski and sailing club sports teams traveling around the Pacific Northwest and beyond. I met some of my closest friends on these teams and I was able to see a large part of the West Coast through my travels. Every trip except two were taken in 12 passenger vans, driving from three to 18 hours at a time! This map shows where I traveled for each year of college, by clicking the buttons above you will move from place to place in the order of trips taken.</h6>
         <p>By: Aidan Clark</p>
+        <p>All sources my own</p>
     </div>
     </div>
 
@@ -141,17 +168,29 @@
     <button id="zoom-out">-</button>
     </div>
     
+<!--    Legend Container code-->
+    <div class="legend-container">
+    <div class="legend-title">Legend</div>
+    <div class="legend-item">
+        <i class="fas fa-sailboat legend-icon" style="color: black;"></i>
+        <div class="legend-label">Sailing</div>
+    </div>
+    <div class="legend-item">
+        <i class="fas fa-person-skiing legend-icon" style="color: black;"></i>
+        <div class="legend-label">Alpine Skiing</div>
+    </div>
+</div>
+    
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWZjMjAwMiIsImEiOiJjbHVsbGhhZDYxMndzMmlwNTMyYWJtaXl2In0.oWBwqoOTKizpyf8pVHeENw';
 
     const locations = [
         [
-            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
             { name: 'Annapolis', coordinates: [ -76.48289783468702, 38.98350959514186] },
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] }
         ],
         [
-            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
             { name: 'Seattle1', coordinates: [-122.25603955653592, 47.68810868087924] },
             { name: 'Eugene1', coordinates: [-123.29440298624444, 44.10970633784268] },
             { name: 'Bellingham1', coordinates: [-122.33659615985495, 48.73715947872702] },
@@ -166,9 +205,9 @@
             { name: 'OrcasIsland1', coordinates: [-122.98107825834987, 48.633046189814266] },
             { name: 'RainerCascadeLocks1', coordinates: [-121.88708757595536, 45.67755921345878] },
             { name: 'GorgeCascadeLocks1', coordinates: [-121.89094995672524, 45.67761918294506] },
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] }
         ],
         [
-            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
             { name: 'Seattle3', coordinates: [-122.22924296818425, 47.683383764335055] },
             { name: 'Eugene2', coordinates: [-123.32153699714587, 44.10847639101417] },
             { name: 'Seattle4', coordinates: [-122.26484793097914, 47.6889464595122] },
@@ -184,9 +223,9 @@
             { name: 'RainerCL2', coordinates: [-121.89721559664079, 45.673091305977955] },
             { name: 'OrcasIsland2', coordinates: [-122.95761000883107, 48.63157719627219] },
             { name: 'GorgeCL2', coordinates: [-121.89148638972443, 45.672319206030885] },
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] }
         ],
         [
-            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] },
             { name: 'Seattle5', coordinates: [-122.26484793097914, 47.6889464595122] },
             { name: 'Eugene4', coordinates: [-123.30605878541829, 44.10936454794704] },
             { name: 'Seattle6', coordinates: [-122.26484793097914, 47.6889464595122] },
@@ -198,6 +237,7 @@
             { name: 'Eugene5', coordinates: [-123.31318551947251, 44.11599520722522] },
             { name: 'Eugene6', coordinates: [-123.31318551947251, 44.11599520722522] },
             { name: 'GorgeCL3', coordinates: [-121.89152202062441, 45.67229568652907] },
+            { name: 'EugeneStart', coordinates: [ -123.07399541967379, 44.043514419363625] }
         ]
     ];
     
@@ -1036,4 +1076,3 @@ var marker1 = new mapboxgl.Marker({
 
 </body>
 </html>
-
