@@ -8,6 +8,10 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://kit.fontawesome.com/a8ee3eb084.js" crossorigin="anonymous"></script>
+    <!--    font includes-->
+    
+    
     <style>
         body, html {
             margin: 0;
@@ -77,16 +81,6 @@
         .popupImage{
              width:100%;
          }
-        
-        /* Custom marker style I CANT MAKE THIS WORK */
-        .marker {
-            width: 30px;
-            height: 30px;
-            background-image: url('icons8-skiing-30.png'); /* Replace 'your-marker-image.png' with your PNG marker image */
-            background-size: cover;
-            border-radius: 50%;
-            cursor: pointer;
-        }
         
         /* Different background colors for buttons */
         .button:nth-child(1) {
@@ -210,8 +204,8 @@
     const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/afc2002/clw9nnxar002p01pp2z4e2t2e',
-    center: [-123.07399541967379, 44.043514419363625], // Centered on Eugene
-    zoom: 12
+    center: [-117.05329968621874, 41.98243038750433], // Centered on Eugene
+    zoom: 4.8
 });
 
 
@@ -223,7 +217,8 @@
         map.flyTo({
             center: locationSet[currentIndex].coordinates,
             essential: true, // this animation is considered essential with respect to prefers-reduced-motion media query
-            duration: 5000 // Adjust the duration (in milliseconds) to slow down the flyover animation
+            duration: 5000, // Adjust the duration (in milliseconds) to slow down the flyover animation
+            zoom:12
             });
         currentIndex++;
             } else {
@@ -649,32 +644,38 @@
      /***  MARKERS  ***/
             // markers go here
            /***  MARKERS  ***/
-    // Function to create a marker element with a letter inside
-    function createMarkerElement(letter, color) {
-        var el = document.createElement('div');
-        el.className = 'marker';
-        el.style.background = color;
-        el.style.width = '30px';
-        el.style.height = '30px';
-        el.style.borderRadius = '50%';
-        el.style.color = 'white';
-        el.style.fontSize = '18px';
-        el.style.fontWeight = 'bold';
-        el.style.textAlign = 'center';
-        el.style.lineHeight = '30px';
-        el.innerHTML = letter; // Insert the letter inside the marker
-        return el;
+// Function to create a marker element with an icon inside 
+function createMarkerElement(letter, color) {
+    var el = document.createElement('div');
+    el.className = 'marker';
+    el.style.background = color;
+    el.style.width = '30px';
+    el.style.height = '30px';
+    el.style.borderRadius = '50%';
+    el.style.color = 'white';
+    el.style.fontSize = '18px';
+    el.style.fontWeight = 'bold';
+    el.style.textAlign = 'center';
+    el.style.lineHeight = '30px';
+    
+    if (letter == 'S'){
+        el.innerHTML = '<i class="fa-solid fa-sailboat"></i>'; // Insert the letter inside the marker 
+    } else if (letter == 'A'){
+        el.innerHTML = '<i class="fa-solid fa-person-skiing"></i>'; // Insert the letter inside the marker 
     }
+    
+    return el;
+}
 
-    // Marker 1 - Annapolis
-    var marker1 = new mapboxgl.Marker({
-            color: '#859805',
-            // Add number 1 inside the marker
-            element: createMarkerElement('S', '#859805')
-        })
-        .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
-        .setPopup(popup1) 
-        .addTo(map);
+// Marker 1 - Annapolis
+var marker1 = new mapboxgl.Marker({
+        color: '#859805',
+        element: createMarkerElement('S', '#859805')
+    })
+    .setLngLat([-76.48289783468702, 38.98350959514186]) // Annapolis
+    .setPopup(popup1) 
+    .addTo(map);
+
         
     // Marker 2 - Seattle 
     var marker2 = new mapboxgl.Marker({
