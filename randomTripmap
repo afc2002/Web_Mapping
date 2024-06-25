@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Location Map with Mapbox</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.css" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        .button-container {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <div class="button-container">
+        <button onclick="goToRandomLocation()">Go to Random Location</button>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.12.0/mapbox-gl.js"></script>
+    <script>
+        // Your Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWZjMjAwMiIsImEiOiJjbHVsbGhhZDYxMndzMmlwNTMyYWJtaXl2In0.oWBwqoOTKizpyf8pVHeENw';
+
+        // Initialize the map
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [0, 0],
+            zoom: 2
+        });
+
+        // List of predefined coordinates
+        var locations = [
+            { lat: 40.712776, lng: -74.005974 }, // New York
+            { lat: 34.052235, lng: -118.243683 }, // Los Angeles
+            { lat: 51.507351, lng: -0.127758 }, // London
+            { lat: 35.689487, lng: 139.691711 }, // Tokyo
+            { lat: -33.868820, lng: 151.209296 } // Sydney
+        ];
+
+        // Function to go to a random location
+        function goToRandomLocation() {
+            var randomIndex = Math.floor(Math.random() * locations.length);
+            var randomLocation = locations[randomIndex];
+            map.flyTo({
+                center: [randomLocation.lng, randomLocation.lat],
+                zoom: 10,
+                essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+        }
+    </script>
+</body>
+</html>
